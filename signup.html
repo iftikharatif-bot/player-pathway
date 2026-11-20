@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Player Sign-Up · 6ix Cricket Academy</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* One column, phone first: a parent fills this in on their phone in a few minutes. */
+:root{
+  --bg:#0b0a18;--card:#15132a;--card2:#1c1a36;--line:rgba(255,255,255,.1);
+  --text:#eceaf6;--muted:#a19eba;--pink:#e040a0;--blue:#4f7dff;--green:#2fd3a0;--amber:#ffb547;--red:#ff5d6c;
+  --g:linear-gradient(90deg,#e040a0,#4f7dff);
+  --display:"Archivo Black",Impact,"Arial Black",sans-serif;--body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 var(--body)}
+body{min-height:100vh;background:radial-gradient(900px 500px at 85% -10%,rgba(79,125,255,.18),transparent 60%),radial-gradient(700px 400px at -10% 0%,rgba(224,64,160,.16),transparent 60%),var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:680px;margin:0 auto;padding-block:20px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+header img{width:52px;height:52px;border-radius:50%}
+header h1{font:22px var(--display);margin:0;letter-spacing:.2px}
+header small{display:block;color:var(--muted);font-size:13px}
+.intro{color:var(--muted);margin:0 0 16px;font-size:15px}
+.steps{display:flex;gap:6px;margin-bottom:6px}
+.steps i{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.1)}
+.steps i.on{background:var(--g)}
+.stepname{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+h2{font:21px var(--display);margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+.f{margin-bottom:14px}
+.f>label,.lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.req{color:var(--pink)}
+.hint{color:var(--muted);font-size:13px;margin-top:4px}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none;font-size:16px}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,125,255,.2)}
+textarea{min-height:84px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pick button{border:1px solid var(--line);background:var(--card2);border-radius:999px;padding:9px 14px;cursor:pointer;font-size:14px}
+.pick button.on{background:var(--g);border-color:transparent;color:#fff;font-weight:600}
+.pick button:focus-visible,.btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.q{padding:12px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.q .row span{font-size:15px}
+.yn{display:flex;gap:6px;flex:none}
+.yn button{min-width:56px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card2);cursor:pointer;font-weight:600;font-size:14px}
+.yn button.yes{background:var(--amber);color:#1b1300;border-color:var(--amber)}
+.yn button.no{background:rgba(47,211,160,.18);border-color:rgba(47,211,160,.5);color:#9ff3d6}
+.waiver{max-height:340px;overflow-y:auto;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6}
+.waiver h3{font-size:14px;margin:14px 0 4px;color:#fff}
+.waiver h3:first-child{margin-top:0}
+.waiver p{margin:0 0 8px;color:#d9d6ec}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer;margin:12px 0}
+.check input{width:20px;height:20px;accent-color:var(--pink);flex:none;margin-top:2px}
+.sig{position:relative;background:#fff;border-radius:12px;height:150px;touch-action:none;overflow:hidden}
+.sig canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.sig .ph{position:absolute;left:14px;bottom:12px;color:#8a879f;font-size:13px;pointer-events:none}
+.sig .line{position:absolute;left:14px;right:14px;bottom:34px;border-bottom:1px dashed #c9c6d8;pointer-events:none}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:18px}
+.btn{border:1px solid var(--line);background:var(--card2);padding:13px 20px;border-radius:12px;cursor:pointer;font-weight:700;font-size:15px}
+.btn.pri{background:var(--g);border:0;color:#fff;flex:1}
+.btn:disabled{opacity:.55;cursor:default}
+.err{background:rgba(255,93,108,.12);border:1px solid rgba(255,93,108,.4);color:#ffb3bb;border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:14px}
+.bad{border-color:var(--red)!important}
+.done{text-align:center;padding:36px 20px}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--g);display:grid;place-items:center;margin:0 auto 14px;font-size:30px;color:#fff}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes s{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="logo.png" alt="6ix Cricket Academy logo"><div><h1>Player sign-up</h1><small>6ix Cricket Academy · Coach Atif Iftikhar</small></div></header>
+  <p class="intro" id="intro">Before the first session, please fill in a few details about the player, their health, and how you'd like to pay, then sign the waiver. It takes about 5 minutes.</p>
+  <div id="app"></div>
+  <footer>Your details are used only for coaching, safety and contacting you. They are never shared or sold.</footer>
+</div>
+<script>
+const SB_URL="https://wukbmquizcjslegspbkz.supabase.co",SB_KEY="sb_publishable_4T3kNNQO4J3saPPfbi2qvw_e2Zz78MG";
+const WAIVER_VERSION="2026-11-v1";
+const ACADEMY="6ix Cricket Academy",COACH="Coach Atif Iftikhar";
+// The waiver wording. Have it reviewed by a lawyer before relying on it.
+const WAIVER=[
+ ["About the activity","Cricket coaching involves batting against a hard ball, bowling, fielding, wicketkeeping, running and fitness work, indoors and outdoors. A cricket ball is hard and can travel at high speed."],
+ ["Risks","Taking part carries a risk of injury. This includes bruises, sprains, strains, cuts, broken bones, injuries to the eyes, teeth or face, concussion, heat-related illness, and in rare cases serious or permanent injury."],
+ ["Safety equipment and instructions","The player will wear a properly fitted helmet when batting or keeping up to the stumps against a hard ball, plus pads, gloves and an abdominal guard where appropriate. The player will follow the coach's safety instructions and tell the coach straight away about any pain, injury or feeling unwell."],
+ ["Accepting the risks","I understand these risks and accept them on behalf of the player (or myself, if I am the player and 18 or over). I confirm the player is physically able to take part, and that the health information I have given is true and complete. I will tell the coach about any change."],
+ ["Release","To the fullest extent permitted by law, I release "+ACADEMY+", "+COACH+" and any assistant coaches from claims for injury, loss or damage arising from taking part in coaching sessions, except where caused by gross negligence or wilful misconduct."],
+ ["Medical treatment","If the player is injured or becomes unwell, I authorise the coach to give first aid and to arrange emergency medical treatment, including calling 911. I will cover any costs of that treatment that are not covered by OHIP or insurance. The coach will contact me or the emergency contact as soon as possible."],
+ ["Bookings, payments and cancellations","Session fees are paid at or before each session using the payment method chosen in this form. Please give at least 24 hours' notice to cancel or move a session; late cancellations and no-shows may be charged in full."],
+ ["Conduct","The player will show respect to coaches, other players and facilities. The coach may end a session early for unsafe or disrespectful behaviour."],
+ ["Your information","Information in this form is used only to coach the player safely and to contact you. It is kept private and only the coach can see it."]
+];
+const STEPS=["Player","Contacts","Health","Sessions & payment","Waiver"];
+const HEALTH=[
+ ["heart","Any heart condition, chest pain or fainting during exercise?"],
+ ["condition","Asthma, diabetes, epilepsy or another ongoing condition?"],
+ ["allergy","Any allergies (food, bee stings, medication)?"],
+ ["meds","Takes regular medication or carries an inhaler or EpiPen?"],
+ ["injury","An injury or surgery in the last 12 months?"],
+ ["concussion","Ever had a concussion?"],
+ ["doctor","Has a doctor advised avoiding any physical activity?"]
+];
+const LEVELS=["New to cricket","School or house league","Club cricket","Rep team or academy"];
+const ROLES=["Batter","Bowler","All-rounder","Wicketkeeper","Not sure yet"];
+const TYPES=["1-on-1 coaching","Small group","Academy program","Not sure yet"];
+const FOCUS=["Batting","Bowling","Wicketkeeping","Fielding","Fitness","Match preparation"];
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const TIMES=["Mornings","Afternoons","Evenings"];
+const PAY=["E-transfer","Cash","Card","Other"];
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const todayIso=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+const ageOn=(dob)=>{if(!dob)return null;const b=new Date(dob+"T12:00:00"),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate()))a--;return a};
+const minor=()=>{const a=ageOn(F.dob);return a===null||a<18};
+const KEY="pp_signup_draft";
+let F={step:0,health:{},types:[],focus:[],days:[],times:[],photo:"",comms:true,agree:false,sig:"",started:Date.now()};
+try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d&&d.v===WAIVER_VERSION)F={...F,...d.f,sig:"",agree:false,started:Date.now()}}catch(_){}
+let err="",busy=false,sent=false;
+const saveDraft=()=>{try{const {sig,agree,...rest}=F;localStorage.setItem(KEY,JSON.stringify({v:WAIVER_VERSION,f:rest}))}catch(_){}};
+
+function inp(id,label,type,opts={}){
+  return `<div class="f"><label for="${id}">${esc(label)}${opts.req?' <span class="req">*</span>':""}</label>${type==="textarea"?`<textarea id="${id}" ${opts.ph?`placeholder="${esc(opts.ph)}"`:""}>${esc(F[id]||"")}</textarea>`:`<input type="${type}" id="${id}" value="${esc(F[id]||"")}" ${opts.ph?`placeholder="${esc(opts.ph)}"`:""} ${opts.auto?`autocomplete="${opts.auto}"`:""} ${type==="date"?`max="${todayIso()}"`:""}>`}${opts.hint?`<div class="hint">${esc(opts.hint)}</div>`:""}</div>`;
+}
+function pick(key,list,multi,label,req){
+  const v=F[key];const on=x=>multi?(v||[]).includes(x):v===x;
+  return `<div class="f"><span class="lbl">${esc(label)}${req?' <span class="req">*</span>':""}</span><div class="pick" data-key="${key}" data-multi="${multi?1:0}">${list.map(x=>`<button type="button" data-v="${esc(x)}" class="${on(x)?"on":""}" aria-pressed="${on(x)}">${esc(x)}</button>`).join("")}</div></div>`;
+}
+function stepHtml(){
+  const s=F.step,m=minor();
+  if(s===0)return `<h2>About the player</h2><p class="sub">Who will be coached?</p>
+    ${inp("player","Player's full name","text",{req:1,auto:"off"})}
+    <div class="two">${inp("dob","Date of birth","date",{req:1})}${inp("school","School or club (optional)","text")}</div>
+    ${pick("level",LEVELS,false,"Cricket experience",1)}
+    ${pick("role",ROLES,false,"Main role")}
+    <div class="two">${`<div class="f"><label for="bats">Bats</label><select id="bats"><option value="">Choose</option>${["Right-handed","Left-handed"].map(x=>`<option ${F.bats===x?"selected":""}>${x}</option>`).join("")}</select></div>`}${inp("bowls","Bowling style (optional)","text",{ph:"e.g. Right-arm leg spin"})}</div>
+    ${inp("goals","What would you like to get out of coaching?","textarea",{ph:"e.g. Make the U15 rep team, fix my front-foot drive"})}`;
+  if(s===1)return `<h2>Contact details</h2><p class="sub">${m?"The parent or guardian we should contact about sessions and payments.":"How we can reach you about sessions and payments."}</p>
+    ${m?inp("pname","Parent or guardian's full name","text",{req:1,auto:"name"})+`<div class="f"><label for="rel">Relationship to player <span class="req">*</span></label><select id="rel"><option value="">Choose</option>${["Mother","Father","Guardian","Other family member"].map(x=>`<option ${F.rel===x?"selected":""}>${x}</option>`).join("")}</select></div>`:""}
+    <div class="two">${inp("phone",m?"Parent's mobile number":"Mobile number","tel",{req:1,auto:"tel",ph:"e.g. 416 555 0123"})}${inp("email",m?"Parent's email":"Email","email",{req:1,auto:"email"})}</div>
+    ${m?inp("email2","Second parent's email (optional)","email",{hint:"They can also see reports in the parent portal."}):""}
+    <div class="lbl" style="margin-top:6px">Emergency contact</div><p class="sub" style="margin-bottom:10px">Someone other than ${m?"the parent above":"you"}, in case we can't reach ${m?"you":"you"}.</p>
+    <div class="two">${inp("ecname","Name","text",{req:1})}${inp("ecphone","Phone","tel",{req:1})}</div>
+    ${inp("heard","How did you hear about us? (optional)","text")}`;
+  if(s===2){const any=HEALTH.some(([k])=>F.health[k]==="yes");
+    return `<h2>Health check</h2><p class="sub">Answer each question for the player. A "yes" doesn't stop them training; it helps the coach keep them safe.</p>
+    ${HEALTH.map(([k,q])=>`<div class="q"><div class="row"><span>${esc(q)}</span><div class="yn" data-h="${k}"><button type="button" data-a="yes" class="${F.health[k]==="yes"?"yes":""}" aria-pressed="${F.health[k]==="yes"}">Yes</button><button type="button" data-a="no" class="${F.health[k]==="no"?"no":""}" aria-pressed="${F.health[k]==="no"}">No</button></div></div></div>`).join("")}
+    ${any?inp("hdetails","Please give details","textarea",{req:1,ph:"What it is, how it affects exercise, what to do if it flares up"}):""}`;}
+  if(s===3)return `<h2>Sessions and payment</h2><p class="sub">So the coach can suggest the right sessions and times.</p>
+    ${pick("types",TYPES,true,"Type of coaching",1)}
+    ${pick("focus",FOCUS,true,"What to work on")}
+    ${pick("days",DAYS,true,"Days that usually work")}
+    ${pick("times",TIMES,true,"Times that usually work")}
+    ${pick("pay",PAY,false,"How will you pay for sessions?",1)}
+    <div class="hint" style="margin-top:-6px">${F.pay==="E-transfer"?"The coach will send the e-transfer details when your first session is booked.":"You can change this later."}</div>`;
+  const signer=m?"parent or guardian":"player";
+  return `<h2>Waiver and consent</h2><p class="sub">Please read the waiver, then sign as the ${signer}.</p>
+    <div class="waiver" tabindex="0" aria-label="Waiver text">${WAIVER.map(([h,t])=>`<h3>${esc(h)}</h3><p>${esc(t)}</p>`).join("")}</div>
+    <label class="check"><input type="checkbox" id="agree" ${F.agree?"checked":""}><span>I have read and agree to the waiver above${m?", as the parent or guardian of "+esc(F.player||"the player"):""}. <span class="req">*</span></span></label>
+    <div class="f"><span class="lbl">Photos and video <span class="req">*</span></span><div class="pick" data-key="photo" data-multi="0">${[["yes","Yes, the coach may share photos or clips on social media"],["private","Coaching use only, don't post them"]].map(([v,l])=>`<button type="button" data-v="${v}" class="${F.photo===v?"on":""}" aria-pressed="${F.photo===v}">${esc(l)}</button>`).join("")}</div></div>
+    <label class="check"><input type="checkbox" id="comms" ${F.comms?"checked":""}><span>Send me session updates and reports by WhatsApp or email.</span></label>
+    ${inp("signer","Your full name (as signature)","text",{req:1,auto:"name"})}
+    <div class="f"><span class="lbl">Sign here <span class="req">*</span></span><div class="sig" id="sigbox"><div class="line"></div><span class="ph" id="sigph">${F.sig?"":"Draw your signature with your finger or mouse"}</span><canvas id="sig" aria-label="Signature pad"></canvas></div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px"><span class="hint">Signed ${new Date().toLocaleDateString("en-CA",{year:"numeric",month:"long",day:"numeric"})}</span><button type="button" class="btn" style="padding:6px 12px;font-size:13px" data-act="clearSig">Clear signature</button></div></div>`;
+}
+function render(){
+  const app=$("#app");
+  if(sent){$("#intro").hidden=true;app.innerHTML=`<div class="card done"><div class="tick" aria-hidden="true">✓</div><h2>Thanks, you're all signed up</h2><p class="sub" style="margin:8px 0 0">${esc(COACH)} will be in touch within a day to book ${esc((F.player||"the player").split(" ")[0])}'s first session.</p></div>`;return}
+  app.innerHTML=`<div class="steps" aria-hidden="true">${STEPS.map((_,i)=>`<i class="${i<=F.step?"on":""}"></i>`).join("")}</div>
+  <p class="stepname">Step ${F.step+1} of ${STEPS.length} · ${STEPS[F.step]}</p>
+  <form class="card" id="form" novalidate>${err?`<div class="err" role="alert">${esc(err)}</div>`:""}${stepHtml()}
+  <input class="hp" type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <div class="nav">${F.step?`<button type="button" class="btn" data-act="back">Back</button>`:""}<button type="submit" class="btn pri" ${busy?"disabled":""}>${busy?`<span class="spin"></span>Sending…`:F.step<STEPS.length-1?"Next":"Sign and submit"}</button></div></form>`;
+  if(F.step===4)initSig();
+}
+function collect(){document.querySelectorAll("#form input[id]:not([type=checkbox]):not(#website),#form select,#form textarea").forEach(e=>{F[e.id]=e.value.trim()});
+  const a=$("#agree");if(a)F.agree=a.checked;const c=$("#comms");if(c)F.comms=c.checked;saveDraft()}
+const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v||"");
+const okPhone=v=>(String(v||"").replace(/\D/g,"").length>=10);
+function validate(){
+  const s=F.step,m=minor();const bad=[];
+  const need=(id,ok,msg)=>{if(!ok){bad.push(id);return msg}return ""};
+  let msg="";
+  if(s===0){msg=need("player",F.player&&F.player.length>=2,"Add the player's full name.")||need("dob",F.dob&&F.dob<=todayIso()&&ageOn(F.dob)<100,"Add the player's date of birth.")||(!F.level?"Choose the player's cricket experience.":"")}
+  if(s===1){msg=(m?need("pname",F.pname&&F.pname.length>=2,"Add the parent or guardian's name.")||need("rel",F.rel,"Choose the relationship to the player."):"")||need("phone",okPhone(F.phone),"Add a mobile number with area code.")||need("email",okEmail(F.email),"Add a valid email address.")||need("email2",!F.email2||okEmail(F.email2),"Check the second email address.")||need("ecname",F.ecname,"Add an emergency contact name.")||need("ecphone",okPhone(F.ecphone),"Add the emergency contact's phone number.")}
+  if(s===2){const missing=HEALTH.find(([k])=>!F.health[k]);msg=missing?"Answer every health question with Yes or No.":(HEALTH.some(([k])=>F.health[k]==="yes")?need("hdetails",F.hdetails&&F.hdetails.length>=3,"Add details for the questions you answered Yes."):"")}
+  if(s===3){msg=!F.types.length?"Choose at least one type of coaching.":!F.pay?"Choose how you'll pay for sessions.":""}
+  if(s===4){msg=!F.agree?"Tick the box to agree to the waiver.":!F.photo?"Choose an option for photos and video.":need("signer",F.signer&&F.signer.length>=2,"Type your full name.")||(!F.sig?"Draw your signature in the box.":"")}
+  document.querySelectorAll(".bad").forEach(e=>e.classList.remove("bad"));
+  bad.forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add("bad")});
+  return msg;
+}
+async function submit(){
+  if($("#website")&&$("#website").value)return; // bots fill hidden fields
+  if(Date.now()-F.started<15000){err="That was quick. Please check each step, then submit again.";F.started=0;render();return}
+  busy=true;err="";render();
+  const m=minor(),healthFlag=HEALTH.some(([k])=>F.health[k]==="yes");
+  const data={school:F.school||"",level:F.level||"",role:F.role||"",bats:F.bats||"",bowls:F.bowls||"",goals:F.goals||"",
+    minor:m,age:ageOn(F.dob),parent_name:m?F.pname:"",relationship:m?F.rel:"",email2:m?(F.email2||""):"",
+    emergency_name:F.ecname,emergency_phone:F.ecphone,heard:F.heard||"",
+    health:Object.fromEntries(HEALTH.map(([k,q])=>[k,{question:q,answer:F.health[k]}])),health_details:F.hdetails||"",
+    types:F.types,focus:F.focus,days:F.days,times:F.times,photo_consent:F.photo,comms_consent:!!F.comms,
+    signer_role:m?"Parent or guardian":"Player (18 or over)",waiver_text:WAIVER.map(([h,t])=>h+": "+t).join("\n\n")};
+  const row={player_name:F.player,dob:F.dob,data,contact_name:m?F.pname:F.player,contact_phone:F.phone,contact_email:F.email.toLowerCase(),
+    payment_mode:F.pay,health_flag:healthFlag,waiver_signed_name:F.signer,waiver_signature:F.sig,waiver_version:WAIVER_VERSION};
+  try{
+    if(!window.supabase)throw new Error("offline");
+    const sb=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:false}});
+    const {error}=await sb.from("pp_intakes").insert(row);
+    if(error)throw error;
+    sent=true;try{localStorage.removeItem(KEY)}catch(_){}
+  }catch(e){err="We couldn't send the form. Check your internet connection and press Sign and submit again. If it keeps failing, contact Coach Atif directly."}
+  busy=false;render();window.scrollTo(0,0);
+}
+/* signature pad */
+function initSig(){
+  const c=$("#sig");if(!c)return;const box=$("#sigbox");const r=window.devicePixelRatio||1;
+  c.width=box.clientWidth*r;c.height=box.clientHeight*r;const x=c.getContext("2d");x.scale(r,r);x.lineWidth=2.4;x.lineCap="round";x.lineJoin="round";x.strokeStyle="#111";
+  if(F.sig){const im=new Image();im.onload=()=>x.drawImage(im,0,0,box.clientWidth,box.clientHeight);im.src=F.sig}
+  let down=false,last=null,drew=false;
+  const pt=e=>{const b=c.getBoundingClientRect();return {x:e.clientX-b.left,y:e.clientY-b.top}};
+  c.onpointerdown=e=>{down=true;last=pt(e);c.setPointerCapture(e.pointerId);$("#sigph").textContent=""};
+  c.onpointermove=e=>{if(!down)return;const p=pt(e);x.beginPath();x.moveTo(last.x,last.y);x.lineTo(p.x,p.y);x.stroke();last=p;drew=true};
+  const up=()=>{if(!down)return;down=false;if(drew){const o=document.createElement("canvas");o.width=Math.min(600,box.clientWidth);o.height=Math.round(o.width*box.clientHeight/box.clientWidth);o.getContext("2d").drawImage(c,0,0,o.width,o.height);F.sig=o.toDataURL("image/png")}};
+  c.onpointerup=up;c.onpointercancel=up;c.onpointerleave=up;
+}
+document.addEventListener("click",e=>{
+  const pb=e.target.closest(".pick button");
+  if(pb){const g=pb.parentElement,k=g.dataset.key,v=pb.dataset.v;collect();
+    if(g.dataset.multi==="1"){const a=F[k]||[];F[k]=a.includes(v)?a.filter(z=>z!==v):[...a,v]}else F[k]=F[k]===v?"":v;
+    saveDraft();render();return}
+  const yb=e.target.closest(".yn button");
+  if(yb){collect();F.health[yb.parentElement.dataset.h]=yb.dataset.a;saveDraft();render();return}
+  const a=e.target.closest("[data-act]");if(!a)return;
+  if(a.dataset.act==="back"){collect();err="";F.step--;saveDraft();render();window.scrollTo(0,0)}
+  if(a.dataset.act==="clearSig"){F.sig="";render()}
+});
+document.addEventListener("submit",e=>{
+  e.preventDefault();if(busy)return;collect();err=validate();
+  if(err){render();validate();const b=document.querySelector(".bad");if(b)b.focus();else window.scrollTo(0,0);return}
+  if(F.step<STEPS.length-1){F.step++;saveDraft();render();window.scrollTo(0,0);return}
+  submit();
+});
+render();
+</script>
+</body>
+</html>

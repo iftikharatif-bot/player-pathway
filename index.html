@@ -251,10 +251,10 @@ const PROGRAMS=["Cardinal","6ix","1-on-1"];
 const AGES=["U11","U13","U15","U17","U19","Adult"];
 const ROLES=["Batter","Bowler","All-rounder","Wicketkeeper"];
 const TAGS=["Batting","Bowling","Fielding","Keeping","Fitness","Match"];
-const COLS=["players","assessments","sessions","clips","reports","bookings"];
+const COLS=["players","assessments","sessions","clips","reports","bookings","intakes"];
 const SB_URL="https://wukbmquizcjslegspbkz.supabase.co",SB_KEY="sb_publishable_4T3kNNQO4J3saPPfbi2qvw_e2Zz78MG",BUCKET="pp-clips";
 const S={db:null,assets:null,sample:null,downloads:null,ready:false,err:null,stale:false,user:null,isCoach:false,auth:"in",authMsg:"",kid:null,openRep:null,urls:{},urlBusy:false,
-  players:[],assessments:[],sessions:[],clips:[],reports:[],bookings:[],
+  players:[],assessments:[],sessions:[],clips:[],reports:[],bookings:[],intakes:[],
   view:"command",pid:null,tab:"overview",q:"",fProg:"",fAge:"",armed:null,modal:null};
 
 const $=s=>document.querySelector(s);
@@ -276,7 +276,7 @@ const active=()=>S.players.filter(p=>p.active!==false);
 const reportDue=p=>forP("assessments",p.id).length&&!forP("reports",p.id).some(r=>r.periodEnd>=daysAgo(30));
 const reassessDue=p=>{const a=latestPair(p.id)[0];return a&&a.date<daysAgo(84)};
 function latestPair(pid,before){const a=assessSorted(pid).filter(x=>!before||x.date<=before);return [a[a.length-1]||null,a[a.length-2]||null]}
-const KEYS={playerId:"player_id",ageGroup:"age_group",parentName:"parent_name",parentEmail:"parent_email",parentEmail2:"parent_email2",parentPhone:"parent_phone",workOn:"work_on",privateNote:"private_note",periodStart:"period_start",periodEnd:"period_end",contentType:"content_type",sizeBytes:"size_bytes",accessActive:"access_active",publishedAt:"published_at",createdAt:"created_at",updatedAt:"updated_at",bookingId:"booking_id",sentAt:"sent_at",sentVia:"sent_via",gcalId:"gcal_id",gcalPushed:"gcal_pushed"};
+const KEYS={playerId:"player_id",ageGroup:"age_group",parentName:"parent_name",parentEmail:"parent_email",parentEmail2:"parent_email2",parentPhone:"parent_phone",workOn:"work_on",privateNote:"private_note",periodStart:"period_start",periodEnd:"period_end",contentType:"content_type",sizeBytes:"size_bytes",accessActive:"access_active",publishedAt:"published_at",createdAt:"created_at",updatedAt:"updated_at",bookingId:"booking_id",sentAt:"sent_at",sentVia:"sent_via",gcalId:"gcal_id",gcalPushed:"gcal_pushed",playerName:"player_name",contactName:"contact_name",contactPhone:"contact_phone",contactEmail:"contact_email",paymentMode:"payment_mode",healthFlag:"health_flag",waiverSignedName:"waiver_signed_name",waiverSignature:"waiver_signature",waiverVersion:"waiver_version",signedAt:"signed_at"};
 const BACK=Object.fromEntries(Object.entries(KEYS).map(([a,b])=>[b,a]));
 function toRow(d){const o={};for(const k in d){if(k==="id"||k==="createdAt"||k==="updatedAt")continue;const v=d[k];o[KEYS[k]||k]=(v===""||v===undefined)?null:v}return o}
 function fromRow(r){const o={};for(const k in r){let v=r[k];if(k==="created_at"||k==="updated_at")v=Date.parse(v)||0;if(v===null&&k!=="published_at")v=Array.isArray(r[k])?[]:"";o[BACK[k]||k]=v}if(o.focus==="")o.focus=[];return o}
@@ -387,7 +387,7 @@ function renderNav(){
   $("#nav").style.display="";const out=`<button data-act="signOut">Sign out</button>`;
   if(!S.isCoach){$("#nav").innerHTML=out;return}
   const drafts=S.reports.filter(r=>r.status!=="published").length;
-  $("#nav").innerHTML=`<button data-act="view" data-v="command" class="${S.view==="command"?"on":""}">Command</button><button data-act="view" data-v="players" class="${S.view==="players"||S.view==="player"?"on":""}">Players</button><button data-act="view" data-v="reports" class="${S.view==="reports"?"on":""}">Reports${drafts?`<span class="badge">${drafts}</span>`:""}</button>`+out;
+  $("#nav").innerHTML=`<button data-act="view" data-v="command" class="${S.view==="command"?"on":""}">Command${S.intakes.filter(x=>x.status==="new").length?`<span class="badge">${S.intakes.filter(x=>x.status==="new").length}</span>`:""}</button><button data-act="view" data-v="players" class="${S.view==="players"||S.view==="player"?"on":""}">Players</button><button data-act="view" data-v="reports" class="${S.view==="reports"?"on":""}">Reports${drafts?`<span class="badge">${drafts}</span>`:""}</button>`+out;
 }
 function renderMain(){
   const m=$("#main");const focused=document.activeElement&&document.activeElement.id==="q";
@@ -752,7 +752,7 @@ function commandBody(){
     <div class="kpi ${owedSum?"warn":""}"><span>Owed to you</span><b>${money(owedSum)}</b><small>${owedP?`${owedP} player${owedP>1?"s":""}, ${o.length} session${o.length>1?"s":""}`:"Everyone is paid up"}</small></div>
     <div class="kpi good"><span>Collected in ${new Date(t+"T12:00:00").toLocaleDateString("en-CA",{month:"long"})}</span><b>${money(got)}</b><small>From sessions marked paid</small></div>
     <div class="kpi ${ts.length?"warn":""}"><span>Updates to send</span><b>${ts.length}</b><small>Session notes and reports</small></div></div>`;
-  return kpis+`<div class="cc-grid"><section class="card">${calendar()}</section><aside class="cc-side">${todayCard(todays)}${owedCard(o)}${sendCard(ts)}</aside></div>${rosterCard()}`;
+  return kpis+`<div class="cc-grid"><section class="card">${calendar()}</section><aside class="cc-side">${intakeCard()}${todayCard(todays)}${owedCard(o)}${sendCard(ts)}</aside></div>${rosterCard()}`;
 }
 
 function calendar(){
@@ -800,7 +800,7 @@ function rosterCard(){
     const rep=forP("reports",p.id).sort((x,y)=>(x.periodEnd||"").localeCompare(y.periodEnd||"")).pop();
     const repChip=!rep?`<span class="chip warn">None yet</span>`:rep.sentAt?`<span class="chip ok">Sent ${fmt(iso(new Date(rep.sentAt))).replace(/, \d{4}$/,"")}</span>`:rep.status==="published"?`<span class="chip warn">Published, not sent</span>`:`<span class="chip">Draft</span>`;
     return `<tr><td><button class="nm" data-act="open" data-id="${p.id}">${esc(p.name)}</button><div class="meta">${esc([p.ageGroup,p.role].filter(Boolean).join(" · "))}</div></td><td><span class="chip prog">${esc(p.program||"—")}</span></td><td>${m30}</td><td>${last?fmtLong(last.date):"—"}</td><td>${nb?fmtLong(nb.date)+(nb.start?" "+tlabel(nb.start):""):"—"}</td><td>${ow?`<span class="amt" style="font-size:14px">${money(ow)}</span>`:`<span class="chip ok">Paid up</span>`}</td><td>${repChip}</td><td style="white-space:nowrap"><button class="btn sm" data-act="logSession" data-id="${p.id}">+ Log</button> <button class="btn sm" data-act="bNewFor" data-id="${p.id}">+ Book</button></td></tr>`}).join("");
-  return `<section class="card roster"><div class="cc-h"><h3>Players</h3><button class="btn sm" data-act="newPlayer">+ Add player</button></div><div class="tbl"><table><thead><tr><th>Player</th><th>Program</th><th>Sessions (30 days)</th><th>Last session</th><th>Next booking</th><th>Owes</th><th>Latest report</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  return `<section class="card roster"><div class="cc-h"><h3>Players</h3><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm" data-act="signupSend">Send sign-up form</button><button class="btn sm" data-act="newPlayer">+ Add player</button></div></div><div class="tbl"><table><thead><tr><th>Player</th><th>Program</th><th>Sessions (30 days)</th><th>Last session</th><th>Next booking</th><th>Owes</th><th>Latest report</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
 }
 
 /* ----- Google Calendar (secret iCal address, read through the pp-calendar function) ----- */
@@ -1218,6 +1218,104 @@ document.addEventListener("click",e=>{
 document.addEventListener("input",e=>{if(["mBody","mSubj","mTo"].includes(e.target.id))updLinks()});
 document.addEventListener("keydown",e=>{
   if(e.target.id==="jIn"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();jRun()}
+});
+
+/* ---------- sign-ups (pre-screening + waiver) ---------- */
+const SIGNUP_URL=location.protocol==="https:"?location.origin+location.pathname.replace(/[^/]*$/,"")+"signup.html":"https://iftikharatif-bot.github.io/player-pathway/signup.html";
+const ageFrom=dob=>{if(!dob)return null;const b=new Date(dob+"T12:00:00"),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate()))a--;return a};
+const ageGroupOf=a=>a===null?"":a<11?"U11":a<13?"U13":a<15?"U15":a<17?"U17":a<19?"U19":"Adult";
+const newIntakes=()=>S.intakes.filter(x=>x.status==="new").sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+const idata=x=>x&&typeof x.data==="object"&&x.data?x.data:{};
+function intakeCard(){
+  const list=newIntakes();
+  return `<section class="card"><div class="cc-h"><h3>New sign-ups</h3><button class="btn sm" data-act="signupSend">Send sign-up form</button></div>
+  ${list.length?list.slice(0,8).map(x=>{const d=idata(x);return `<div class="rowi"><div class="who"><b>${esc(x.playerName)}</b><span class="meta">${d.age!=null?"Age "+d.age+" · ":""}${esc(d.level||"")}${x.healthFlag?` · <span style="color:var(--amber)">health notes</span>`:""}</span></div><div class="btns"><button class="btn sm pri" data-act="intakeOpen" data-id="${x.id}">Review</button></div></div>`}).join(""):`<p class="meta" style="margin:0">No new sign-ups. Send the form to a new family and their answers and signed waiver land here.</p>`}</section>`;
+}
+function intakeForm(x){
+  const d=idata(x),p=x.playerId&&player(x.playerId);const yes=Object.values(d.health||{}).filter(h=>h&&h.answer==="yes");
+  const row=(l,v)=>v?`<p><span class="lbl">${esc(l)}:</span> ${esc(v)}</p>`:"";
+  const list=a=>Array.isArray(a)&&a.length?a.join(", "):"";
+  openModal(`<h3>${esc(x.playerName)}</h3><div class="sub">Signed up ${fmt(iso(new Date(x.signedAt||x.createdAt||Date.now())))} · ${x.status==="new"?"Not reviewed yet":x.status==="added"?"Added as a player":"Reviewed"}</div>
+  ${x.healthFlag?`<div class="note"><b>Health:</b> ${esc(yes.map(h=>h.question).join(" "))}<br>${esc(d.health_details||"")}</div>`:`<div class="guide">Health check: no to every question.</div>`}
+  <div class="item">
+    ${row("Date of birth",x.dob?fmt(x.dob)+(d.age!=null?` (age ${d.age})`:""):"")}${row("School or club",d.school)}${row("Experience",d.level)}${row("Role",d.role)}${row("Bats",d.bats)}${row("Bowling",d.bowls)}${row("Goals",d.goals)}
+    <div class="sec">Contact</div>
+    ${row(d.minor?"Parent or guardian":"Name",x.contactName+(d.relationship?` (${d.relationship})`:""))}${row("Phone",x.contactPhone)}${row("Email",x.contactEmail)}${row("Second email",d.email2)}
+    ${row("Emergency contact",[d.emergency_name,d.emergency_phone].filter(Boolean).join(" · "))}${row("Heard about us",d.heard)}
+    <div class="sec">Sessions and payment</div>
+    ${row("Wants",list(d.types))}${row("Work on",list(d.focus))}${row("Days",list(d.days))}${row("Times",list(d.times))}${row("Pays by",x.paymentMode)}
+    <div class="sec">Waiver</div>
+    ${row("Signed by",x.waiverSignedName+" · "+(d.signer_role||""))}${row("Photos and video",d.photo_consent==="yes"?"OK to share on social media":"Coaching use only, don't post")}${row("Updates by WhatsApp or email",d.comms_consent?"Yes":"No")}
+    ${x.waiverSignature?`<img src="${esc(x.waiverSignature)}" alt="Signature" style="background:#fff;border-radius:10px;max-width:260px;width:100%;margin-top:4px">`:""}
+  </div>
+  <div class="actions">${x.status==="new"?`<button class="btn ghost" data-act="intakeDone" data-id="${x.id}">Mark reviewed</button>`:""}<button class="btn" data-act="intakePdf" data-id="${x.id}">Waiver PDF</button>${p?`<button class="btn pri" data-act="open" data-id="${p.id}">Open player</button>`:`<button class="btn pri" data-act="intakeAdd" data-id="${x.id}">Add as player</button>`}</div>`);
+}
+async function intakeAdd(x,btn){
+  const d=idata(x);const a=ageFrom(x.dob);
+  const role={"Batter":"Batter","Bowler":"Bowler","All-rounder":"All-rounder","Wicketkeeper":"Wicketkeeper"}[d.role]||"";
+  const yes=Object.values(d.health||{}).filter(h=>h&&h.answer==="yes").map(h=>h.question);
+  const notes=[d.goals?"Goals: "+d.goals:"",yes.length?"HEALTH: "+yes.join(" ")+(d.health_details?" — "+d.health_details:""):"",
+    "Emergency: "+[d.emergency_name,d.emergency_phone].filter(Boolean).join(" "),d.level?"Experience: "+d.level:"",d.school?"School/club: "+d.school:"",
+    "Pays by: "+(x.paymentMode||"?"),d.photo_consent==="yes"?"Photos: OK to post":"Photos: do NOT post",
+    (d.days&&d.days.length?"Available: "+d.days.join(", "):"")+(d.times&&d.times.length?" ("+d.times.join(", ")+")":"")].filter(Boolean).join("\n");
+  const ex=findPlayer(x.playerName);
+  btn.disabled=true;
+  let pid=ex&&ex.name.toLowerCase()===String(x.playerName).toLowerCase()?ex.id:null;
+  const fields={name:x.playerName,dob:x.dob||null,ageGroup:ageGroupOf(a),role,batting:d.bats==="Left-handed"?"Left":d.bats==="Right-handed"?"Right":"",bowling:d.bowls||"",
+    parentName:d.minor?x.contactName:"",parentEmail:(x.contactEmail||"").toLowerCase(),parentEmail2:(d.email2||"").toLowerCase(),parentPhone:x.contactPhone||"",notes,
+    program:(d.types||[]).includes("Academy program")?"6ix":"1-on-1",active:true};
+  if(pid){const keep=player(pid);for(const k of Object.keys(fields))if(keep[k]&&k!=="notes")delete fields[k];fields.notes=[keep.notes,notes].filter(Boolean).join("\n")}
+  pid=await save("players",pid,fields);
+  if(pid)await save("intakes",x.id,{status:"added",playerId:pid});
+  btn.disabled=false;
+  if(pid){closeModal();toast(`${x.playerName} added to your players.`);renderAll()}
+}
+function intakePdf(x){
+  if(!window.jspdf){toast("PDF tool didn't load — check your connection.",true);return}
+  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"pt",format:"letter"});const d=idata(x);
+  const W=612,M=48,CW=W-2*M;let y=56;
+  const ensure=h=>{if(y+h>740){doc.addPage();y=56}};
+  const txt=(t,size=10.5,bold=false,gap=14)=>{doc.setFont("helvetica",bold?"bold":"normal");doc.setFontSize(size);doc.splitTextToSize(String(t||""),CW).forEach(l=>{ensure(gap);doc.text(l,M,y);y+=gap})};
+  try{doc.addImage(LOGO,"PNG",M,y-20,44,44)}catch(_){}
+  doc.setFont("helvetica","bold");doc.setFontSize(17);doc.text("Player sign-up and waiver",M+56,y);doc.setFont("helvetica","normal");doc.setFontSize(10);doc.text("6ix Cricket Academy · Coach Atif Iftikhar",M+56,y+15);y+=48;
+  txt("Player: "+x.playerName+(x.dob?"   ·   Born "+fmt(x.dob)+(d.age!=null?" (age "+d.age+")":""):""),11,true);
+  txt((d.minor?"Parent or guardian: ":"Contact: ")+x.contactName+(d.relationship?" ("+d.relationship+")":"")+"   ·   "+(x.contactPhone||"")+"   ·   "+(x.contactEmail||""));
+  txt("Emergency contact: "+[d.emergency_name,d.emergency_phone].filter(Boolean).join(" · "));
+  txt("Payment method: "+(x.paymentMode||"")+"   ·   Photos/video: "+(d.photo_consent==="yes"?"OK to share on social media":"coaching use only"));
+  y+=8;txt("Health questions",11,true);
+  Object.values(d.health||{}).forEach(h=>txt((h.answer==="yes"?"YES  ":"No   ")+h.question,10));
+  if(d.health_details)txt("Details: "+d.health_details,10);
+  y+=8;txt("Waiver (version "+x.waiverVersion+")",11,true);
+  String(d.waiver_text||"").split("\n\n").forEach(p=>{txt(p,9.5,false,12.5);y+=3});
+  y+=10;ensure(120);txt("Signed by "+x.waiverSignedName+" ("+(d.signer_role||"")+") on "+new Date(x.signedAt||x.createdAt).toLocaleString("en-CA",{dateStyle:"long",timeStyle:"short"}),10.5,true);
+  if(x.waiverSignature){try{doc.addImage(x.waiverSignature,"PNG",M,y,200,50);y+=56}catch(_){}}
+  return doc.output("blob");
+}
+function signupSendForm(p){
+  p=p||{};
+  const body=`Hi${p.parentName?" "+first(p.parentName):""},\n\nThanks for your interest in coaching with 6ix Cricket Academy. Before the first session, please fill in this short sign-up form. It covers the player's details, a quick health check, how you'd like to pay, and the waiver:\n\n${SIGNUP_URL}\n\nIt takes about 5 minutes. Once it's in, I'll be in touch to book the first session.\n\nThanks,\nCoach Atif\n6ix Cricket Academy`;
+  C.send={type:"signup"};
+  openModal(`<h3>Send the sign-up form</h3><div class="sub">For a new family. Their answers and signed waiver appear under New sign-ups.</div>
+  <div class="f"><label>Form link</label><div style="display:flex;gap:8px"><input type="text" id="suLink" value="${esc(SIGNUP_URL)}" readonly><button class="btn sm" data-act="suCopyLink">Copy link</button></div></div>
+  <div class="two"><div class="f"><label>Their mobile (for WhatsApp)</label><input type="text" id="suPhone" inputmode="tel" value="${esc(p.parentPhone||"")}" placeholder="e.g. 416 555 0123"></div><div class="f"><label>Their email</label><input type="text" id="suTo" inputmode="email" value="${esc(p.parentEmail||"")}" placeholder="parent@example.com"></div></div>
+  <div class="f"><label>Message</label><textarea id="suBody" style="min-height:200px">${esc(body)}</textarea></div>
+  <div class="actions"><button class="btn ghost" data-act="close">Close</button><button class="btn" data-act="suCopy">Copy message</button><a class="btn" id="suWa" target="_blank" rel="noopener" href="${esc(waHref("",body))}">WhatsApp</a><a class="btn pri" id="suMail" href="${esc(mailHref("","Player sign-up form · 6ix Cricket Academy",body))}">Open in email</a></div>`);
+}
+function suLinks(){const b=$("#suBody");if(!b)return;const w=$("#suWa"),m=$("#suMail");
+  if(w)w.href=waNum(val("suPhone"))?waHref(val("suPhone"),b.value):"https://wa.me/?text="+encodeURIComponent(b.value);
+  if(m)m.href=mailHref(val("suTo"),"Player sign-up form · 6ix Cricket Academy",b.value)}
+document.addEventListener("input",e=>{if(["suBody","suPhone","suTo"].includes(e.target.id))suLinks()});
+document.addEventListener("click",async e=>{
+  const el=e.target.closest("[data-act]");if(!el)return;const id=el.dataset.id;
+  switch(el.dataset.act){
+    case "signupSend":signupSendForm();break;
+    case "intakeOpen":{const x=S.intakes.find(z=>z.id===id);if(x)intakeForm(x);break}
+    case "intakeDone":{if(await save("intakes",id,{status:"reviewed"})){closeModal();toast("Marked as reviewed.");renderAll()}break}
+    case "intakeAdd":{const x=S.intakes.find(z=>z.id===id);if(x)intakeAdd(x,el);break}
+    case "intakePdf":{const x=S.intakes.find(z=>z.id===id);if(!x)return;const blob=intakePdf(x);if(blob)await S.downloads.save({filename:`${x.playerName.replace(/[^\w ]+/g,"").replace(/\s+/g,"-")}-signup-waiver.pdf`,data:blob});break}
+    case "suCopyLink":try{await navigator.clipboard.writeText(SIGNUP_URL);toast("Link copied.")}catch(_){$("#suLink").select();toast("Press Ctrl+C to copy.")}break;
+    case "suCopy":try{await navigator.clipboard.writeText($("#suBody").value);toast("Message copied.")}catch(_){$("#suBody").select();toast("Press Ctrl+C to copy.")}break;
+  }
 });
 
 /* ---------- events ---------- */
