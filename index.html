@@ -129,6 +129,107 @@ input[type=password],input[type=email]{width:100%;background:var(--card);border:
 .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:s 0.8s linear infinite}
 @keyframes s{to{transform:rotate(360deg)}}
 .sec{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:18px 0 8px;font-weight:700}
+/* ---------- command centre ---------- */
+.wrap{transition:max-width .2s}
+.wrap.wide{max-width:1680px}
+.jarvis{position:relative;border-radius:20px;padding:18px;margin-bottom:14px;background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(120deg,rgba(224,64,160,.7),rgba(79,125,255,.7)) border-box;border:1px solid transparent;box-shadow:0 0 0 1px rgba(255,255,255,.02),0 18px 60px -30px rgba(79,125,255,.55)}
+.jv-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.jv-head b{font-size:16px}
+.jv-head .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.orb{width:38px;height:38px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#fff 0,#ff9fd4 18%,var(--pink) 45%,var(--blue) 100%);box-shadow:0 0 18px rgba(224,64,160,.45)}
+.orb.listen{animation:pulse 1.1s ease-in-out infinite}
+.orb.think{animation:spinorb 1.4s linear infinite}
+@keyframes pulse{50%{transform:scale(1.12);box-shadow:0 0 32px rgba(224,64,160,.8)}}
+@keyframes spinorb{to{filter:hue-rotate(360deg)}}
+.jv-head .grow{flex:1;min-width:0}
+.jv-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:stretch}
+.jv-in textarea{min-height:64px;font-size:16px;background:var(--card2)}
+.jv-btns{display:flex;flex-direction:column;gap:8px}
+.mic{width:56px;flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card2);cursor:pointer;display:grid;place-items:center;color:var(--text)}
+.mic svg{width:22px;height:22px}
+.mic.on{background:var(--pink);border-color:var(--pink);color:#fff;animation:pulse 1.1s ease-in-out infinite}
+.partial{color:var(--muted);font-style:italic;font-size:14px;margin-top:6px;min-height:0}
+.jv-ex{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.jv-ex button{border:1px dashed var(--line);background:none;color:var(--muted);border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer}
+.jv-ex button:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
+.reply{margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(79,125,255,.1);border:1px solid rgba(79,125,255,.28);font-size:15px;white-space:pre-wrap}
+.plan{margin-top:10px;display:grid;gap:8px}
+.act{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:10px 12px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
+.act input{width:18px;height:18px;accent-color:var(--pink);margin-top:2px}
+.act b{display:block;font-size:14.5px}
+.act .meta{white-space:pre-wrap}
+.act.off{opacity:.45}
+.act .chip{margin-right:4px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0}
+.kpi b{display:block;font:26px "Archivo Black",sans-serif;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi span{color:var(--muted);font-size:12px}
+.kpi small{display:block;color:var(--muted);font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi.warn b{color:var(--amber)}.kpi.good b{color:var(--green)}.kpi.hot b{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cc-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:14px;align-items:start}
+.cc-side{display:grid;gap:14px;min-width:0}
+.cc-grid>*{min-width:0}
+.cc-h{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cc-h h3{margin:0;font:17px "Archivo Black",sans-serif}
+.seg{display:inline-flex;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:5px 10px;border-radius:7px;color:var(--muted);font-weight:600;font-size:13px;cursor:pointer}
+.seg button.on{background:rgba(255,255,255,.1);color:var(--text)}
+.calwrap{overflow-x:auto}
+.week{display:grid;grid-template-columns:repeat(7,minmax(108px,1fr));gap:8px;min-width:780px}
+.day{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px;min-height:190px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.day.today{border-color:rgba(224,64,160,.6);box-shadow:inset 0 0 0 1px rgba(224,64,160,.3)}
+.day.past{opacity:.78}
+.dh{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.dh .dn{font:18px "Archivo Black",sans-serif;color:var(--text);letter-spacing:0}
+.add{border:0;background:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px}
+.add:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.bk{text-align:left;border:1px solid var(--line);border-left:3px solid var(--blue);background:var(--card);border-radius:9px;padding:6px 8px;cursor:pointer;font-size:12.5px;line-height:1.35;width:100%;color:var(--text)}
+.bk:hover{border-color:rgba(255,255,255,.25)}
+.bk b{display:block;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bk .t{color:var(--muted);font-variant-numeric:tabular-nums}
+.bk.paid{border-left-color:var(--green)}.bk.unpaid{border-left-color:var(--amber)}.bk.part{border-left-color:#ffd08a}.bk.free{border-left-color:var(--blue)}
+.bk.cancelled{opacity:.5;text-decoration:line-through;border-left-color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:1px}
+.dot.paid{background:var(--green)}.dot.unpaid{background:var(--amber)}.dot.part{background:#ffd08a}.dot.free{background:var(--blue)}.dot.cancelled{background:var(--muted)}
+.month{display:grid;grid-template-columns:repeat(7,minmax(96px,1fr));gap:6px;min-width:700px}
+.month .wd{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;padding:0 4px}
+.mc{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:6px;min-height:92px;display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0}
+.mc.out{opacity:.4}.mc.today{border-color:rgba(224,64,160,.6)}
+.mc .n{font-size:12px;font-weight:700;color:var(--muted)}
+.mi{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:0;background:none;padding:0;text-align:left;color:var(--text);cursor:pointer}
+.legend2{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.rowi{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0;border-top:1px solid var(--line)}
+.rowi:first-of-type{border-top:0}
+.rowi .who{min-width:0}
+.rowi .who b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rowi .btns{display:flex;gap:6px;flex:none}
+.amt{font:16px "Archivo Black",sans-serif;font-variant-numeric:tabular-nums;color:var(--amber)}
+.roster{margin-top:14px}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px;min-width:820px}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line);font-weight:700}
+.tbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
+.tbl tr:hover td{background:rgba(255,255,255,.025)}
+.tbl .nm{background:none;border:0;padding:0;cursor:pointer;font-weight:700;color:var(--text);font-size:14px;text-align:left}
+.tbl .nm:hover{color:#ff9fd4}
+.f3{display:grid;grid-template-columns:1.3fr 1fr .8fr;gap:10px}
+input[type=time]{width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;color-scheme:dark}
+input[type=date]{color-scheme:dark}
+.attrow{display:grid;grid-template-columns:minmax(0,1.3fr) 90px auto minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.attrow input[type=text],.attrow select{padding:7px 9px}
+.attrow .check{font-size:13px}
+.mlinks{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+a.btn{text-decoration:none;color:inherit}
+.bk.gcal{border-style:dashed;border-left:3px dashed #8ab4ff;background:transparent}
+.bk.gcal .t::after{content:" · Google";color:#8ab4ff}
+.mi.g{color:#8ab4ff;font-style:italic}
+.gbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:-4px 0 12px;padding:8px 10px;border-radius:10px;background:rgba(138,180,255,.07);border:1px solid rgba(138,180,255,.2)}
+.gbar .g{width:9px;height:9px;border-radius:50%;background:#8ab4ff;flex:none}
+.gbar .grow{flex:1;min-width:160px}
+.gbar .check{font-size:13px}
+@media(max-width:1180px){.cc-grid{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.kpis{grid-template-columns:1fr 1fr}.f3{grid-template-columns:1fr 1fr}.attrow{grid-template-columns:1fr 80px;}.jv-in{grid-template-columns:1fr}.jv-btns{flex-direction:row}.mic{flex:0 0 56px}.jv-btns .btn{flex:1;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.orb,.mic.on{animation:none!important}}
 </style>
 </head>
 <body>
@@ -150,11 +251,11 @@ const PROGRAMS=["Cardinal","6ix","1-on-1"];
 const AGES=["U11","U13","U15","U17","U19","Adult"];
 const ROLES=["Batter","Bowler","All-rounder","Wicketkeeper"];
 const TAGS=["Batting","Bowling","Fielding","Keeping","Fitness","Match"];
-const COLS=["players","assessments","sessions","clips","reports"];
+const COLS=["players","assessments","sessions","clips","reports","bookings"];
 const SB_URL="https://wukbmquizcjslegspbkz.supabase.co",SB_KEY="sb_publishable_4T3kNNQO4J3saPPfbi2qvw_e2Zz78MG",BUCKET="pp-clips";
 const S={db:null,assets:null,sample:null,downloads:null,ready:false,err:null,stale:false,user:null,isCoach:false,auth:"in",authMsg:"",kid:null,openRep:null,urls:{},urlBusy:false,
-  players:[],assessments:[],sessions:[],clips:[],reports:[],
-  view:"players",pid:null,tab:"overview",q:"",fProg:"",fAge:"",armed:null,modal:null};
+  players:[],assessments:[],sessions:[],clips:[],reports:[],bookings:[],
+  view:"command",pid:null,tab:"overview",q:"",fProg:"",fAge:"",armed:null,modal:null};
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -175,7 +276,7 @@ const active=()=>S.players.filter(p=>p.active!==false);
 const reportDue=p=>forP("assessments",p.id).length&&!forP("reports",p.id).some(r=>r.periodEnd>=daysAgo(30));
 const reassessDue=p=>{const a=latestPair(p.id)[0];return a&&a.date<daysAgo(84)};
 function latestPair(pid,before){const a=assessSorted(pid).filter(x=>!before||x.date<=before);return [a[a.length-1]||null,a[a.length-2]||null]}
-const KEYS={playerId:"player_id",ageGroup:"age_group",parentName:"parent_name",parentEmail:"parent_email",parentEmail2:"parent_email2",parentPhone:"parent_phone",workOn:"work_on",privateNote:"private_note",periodStart:"period_start",periodEnd:"period_end",contentType:"content_type",sizeBytes:"size_bytes",accessActive:"access_active",publishedAt:"published_at",createdAt:"created_at",updatedAt:"updated_at"};
+const KEYS={playerId:"player_id",ageGroup:"age_group",parentName:"parent_name",parentEmail:"parent_email",parentEmail2:"parent_email2",parentPhone:"parent_phone",workOn:"work_on",privateNote:"private_note",periodStart:"period_start",periodEnd:"period_end",contentType:"content_type",sizeBytes:"size_bytes",accessActive:"access_active",publishedAt:"published_at",createdAt:"created_at",updatedAt:"updated_at",bookingId:"booking_id",sentAt:"sent_at",sentVia:"sent_via",gcalId:"gcal_id",gcalPushed:"gcal_pushed"};
 const BACK=Object.fromEntries(Object.entries(KEYS).map(([a,b])=>[b,a]));
 function toRow(d){const o={};for(const k in d){if(k==="id"||k==="createdAt"||k==="updatedAt")continue;const v=d[k];o[KEYS[k]||k]=(v===""||v===undefined)?null:v}return o}
 function fromRow(r){const o={};for(const k in r){let v=r[k];if(k==="created_at"||k==="updated_at")v=Date.parse(v)||0;if(v===null&&k!=="published_at")v=Array.isArray(r[k])?[]:"";o[BACK[k]||k]=v}if(o.focus==="")o.focus=[];return o}
@@ -224,7 +325,7 @@ async function enter(user){
   if(S.isCoach)await loadCoach();else await loadParent();
   S.ready=true;renderAll();
 }
-function leave(){S.user=null;S.isCoach=false;S.ready=true;COLS.forEach(c=>S[c]=[]);S.urls={};S.view="players";S.pid=null;renderAll()}
+function leave(){S.user=null;S.isCoach=false;S.ready=true;COLS.forEach(c=>S[c]=[]);S.urls={};S.view="command";S.pid=null;renderAll()}
 (function(){
   if(!window.supabase){S.err="Couldn't load the app. Check your connection and reload.";S.ready=true;renderAll();return}
   S.sb=supabase.createClient(SB_URL,SB_KEY);S.db=true;
@@ -286,16 +387,18 @@ function renderNav(){
   $("#nav").style.display="";const out=`<button data-act="signOut">Sign out</button>`;
   if(!S.isCoach){$("#nav").innerHTML=out;return}
   const drafts=S.reports.filter(r=>r.status!=="published").length;
-  $("#nav").innerHTML=`<button data-act="view" data-v="players" class="${S.view!=="reports"?"on":""}">Players</button><button data-act="view" data-v="reports" class="${S.view==="reports"?"on":""}">Reports${drafts?`<span class="badge">${drafts}</span>`:""}</button>`+out;
+  $("#nav").innerHTML=`<button data-act="view" data-v="command" class="${S.view==="command"?"on":""}">Command</button><button data-act="view" data-v="players" class="${S.view==="players"||S.view==="player"?"on":""}">Players</button><button data-act="view" data-v="reports" class="${S.view==="reports"?"on":""}">Reports${drafts?`<span class="badge">${drafts}</span>`:""}</button>`+out;
 }
 function renderMain(){
   const m=$("#main");const focused=document.activeElement&&document.activeElement.id==="q";
+  document.querySelector(".wrap").classList.toggle("wide",!!(S.user&&S.isCoach&&S.view==="command"));
   let h="";
   if(S.err)h+=`<div class="note">${esc(S.err)}</div>`;
   else if(S.stale)h+=`<div class="note">Can't reach your saved data yet${S.ready?" — what you see may be out of date":""}. It will update by itself.</div>`;
   if(!S.ready&&!S.err){m.innerHTML=h+`<div class="empty"><span class="spin"></span><p>Loading…</p></div>`;return}
   if(!S.user){if(document.activeElement&&/^au/.test(document.activeElement.id||"")&&!S.authDirty)return;S.authDirty=false;m.innerHTML=h+authView();return}
   if(!S.isCoach){m.innerHTML=h+parentView();return}
+  if(S.view==="command"){renderCommand(m,h);return}
   if(S.view==="player"&&player(S.pid))h+=playerView();
   else if(S.view==="reports")h+=reportsView();
   else{S.view="players";h+=playersView()}
@@ -387,7 +490,7 @@ function clipsTab(p){
 function reportCard(r,showName){
   const p=player(r.playerId);
   return `<div class="card item"><div class="row"><div><h4>${showName&&p?esc(p.name)+" · ":""}${fmt(r.periodStart)} – ${fmt(r.periodEnd)}</h4><span class="chip ${r.status==="published"?"ok":"warn"}">${r.status==="published"?"Published to parent":"Draft"}</span></div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="btn sm" data-act="editReport" data-id="${r.id}">Open</button><button class="btn sm" data-act="pdf" data-id="${r.id}">PDF</button>${delBtn("reports",r.id)}</div></div>${r.summary?`<p style="color:var(--muted)">${esc(r.summary.slice(0,180))}${r.summary.length>180?"…":""}</p>`:""}</div>`;
+  <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${r.sentAt?`<span class="chip ok">Sent ${fmt(iso(new Date(r.sentAt)))}</span>`:""}<button class="btn sm" data-act="editReport" data-id="${r.id}">Open</button><button class="btn sm" data-act="pdf" data-id="${r.id}">PDF</button><button class="btn sm pri" data-act="sendReport" data-id="${r.id}">Send</button>${delBtn("reports",r.id)}</div></div>${r.summary?`<p style="color:var(--muted)">${esc(r.summary.slice(0,180))}${r.summary.length>180?"…":""}</p>`:""}</div>`;
 }
 function reportsTab(p){
   const list=forP("reports",p.id).sort((a,b)=>(b.periodEnd||"").localeCompare(a.periodEnd||""));
@@ -416,7 +519,8 @@ function playerForm(p){
   <div class="f2"><div class="f"><label>Primary role</label>${sel("pRole",ROLES,p.role,"—")}</div><div class="f"><label>Date of birth</label><input type="date" id="pDob" value="${esc(p.dob)}"></div></div>
   <div class="f2"><div class="f"><label>Bats</label>${sel("pBat",["Right","Left"],p.batting,"—")}</div><div class="f"><label>Bowling style</label><input type="text" id="pBowl" placeholder="e.g. Right-arm off-spin" value="${esc(p.bowling)}"></div></div>
   <div class="f2"><div class="f"><label>Parent name</label><input type="text" id="pParent" value="${esc(p.parentName)}"></div><div class="f"><label>Parent email</label><input type="text" id="pEmail" inputmode="email" value="${esc(p.parentEmail)}"></div></div>
-  <div class="f2"><div class="f"><label>Second parent email (optional)</label><input type="text" id="pEmail2" inputmode="email" value="${esc(p.parentEmail2)}"></div><div class="f"><label>Parent phone</label><input type="text" id="pPhone" inputmode="tel" value="${esc(p.parentPhone)}"></div></div>
+  <div class="f2"><div class="f"><label>Second parent email (optional)</label><input type="text" id="pEmail2" inputmode="email" value="${esc(p.parentEmail2)}"></div><div class="f"><label>Parent phone</label><input type="text" id="pPhone" inputmode="tel" value="${esc(p.parentPhone)}"></div>
+  <div class="f" style="max-width:260px"><label>Usual fee per session ($)</label><input type="text" id="pRate" inputmode="decimal" placeholder="e.g. 50" value="${esc(p.rate||"")}"></div></div>
   <label class="check" style="margin-bottom:12px"><input type="checkbox" id="pAccess" ${p.accessActive?"checked":""}> Portal access ON — the parent can sign in with the email above and see scores, published reports and shared clips</label>
   <div class="f"><label>Notes (goals, injuries, trial targets)</label><textarea id="pNotes">${esc(p.notes)}</textarea></div>
   <div class="actions"><button class="btn ghost" data-act="close">Cancel</button><button class="btn pri" data-act="savePlayer" data-id="${p.id||""}">Save player</button></div>`);
@@ -441,7 +545,7 @@ function sessionForm(pid,s){
   <div class="f"><label>What went well</label><input type="text" id="sWell" value="${esc(s.well)}"></div>
   <div class="f"><label>Work on next</label><input type="text" id="sWork" value="${esc(s.workOn)}"></div>
   <div class="f"><label>🔒 Private note (never shown to parents or used in reports)</label><input type="text" id="sPriv" value="${esc(s.privateNote)}"></div>
-  <div class="actions"><button class="btn ghost" data-act="close">Cancel</button><button class="btn pri" data-act="saveSession" data-pid="${pid}" data-id="${s.id||""}">Save session</button></div>`);
+  <div class="actions"><button class="btn ghost" data-act="close">Cancel</button><button class="btn pri" data-act="saveSession" data-pid="${pid}" data-id="${s.id||""}" data-bid="${esc(s.bookingId||"")}">Save session</button></div>`);
 }
 function clipForm(c){
   c=c||{};
@@ -456,7 +560,7 @@ function reportForm(r){
   const p=player(r.playerId);
   openModal(`<h3>Monthly report</h3><div class="sub">${esc(p.name)} · ${esc(p.program||"")} · ${esc(p.ageGroup||"")}</div>
   <div class="f2"><div class="f"><label>Period start</label><input type="date" id="rStart" value="${esc(r.periodStart)}"></div><div class="f"><label>Period end</label><input type="date" id="rEnd" value="${esc(r.periodEnd)}"></div></div>
-  <div class="quick"><b>Draft it with Claude</b><div class="meta" style="margin:4px 0 8px">1. Copy the prompt. 2. Paste it into a Claude chat. 3. Paste Claude's reply below. Private notes are left out.</div><button class="btn sm pri" data-act="copyPrompt">1. Copy prompt</button><textarea id="rPaste" style="min-height:56px;margin:8px 0" placeholder="3. Paste Claude's reply here"></textarea><button class="btn sm" data-act="applyReply">Fill the report from the reply</button></div>
+  <div class="quick"><b>Draft it with Claude</b> <button class="btn sm pri" data-act="aiDraftP" id="aiDraftP" style="margin-left:6px">Draft it now</button><div class="meta" style="margin:4px 0 8px">1. Copy the prompt. 2. Paste it into a Claude chat. 3. Paste Claude's reply below. Private notes are left out.</div><button class="btn sm pri" data-act="copyPrompt">1. Copy prompt</button><textarea id="rPaste" style="min-height:56px;margin:8px 0" placeholder="3. Paste Claude's reply here"></textarea><button class="btn sm" data-act="applyReply">Fill the report from the reply</button></div>
   <div class="f"><label>Summary for parents</label><textarea id="rSummary" style="min-height:130px">${esc(r.summary)}</textarea></div>
   <div class="f"><label>Strengths (one per line)</label><textarea id="rStrengths">${esc(r.strengths)}</textarea></div>
   <div class="f"><label>Focus areas (one per line)</label><textarea id="rFocus">${esc(r.focus)}</textarea></div>
@@ -580,6 +684,542 @@ async function downloadPdf(r){
   catch(e){if(e&&e.code!=="declined")toast("Couldn't save the PDF ("+(e&&e.code||"error")+").",true)}
 }
 
+/* ---------- command centre ---------- */
+const KINDS=["1-on-1","Group","Academy"];
+const METHODS=["E-transfer","Cash","Card","Other"];
+const STATUSES=[["booked","Booked"],["done","Done"],["cancelled","Cancelled"]];
+const C={anchor:null,mode:"week",busy:false,plan:null,reply:"",done:null,listening:false,partial:"",voice:true,edit:null,armDel:null,D:null};
+try{C.voice=localStorage.getItem("cc_voice")!=="off";C.mode=localStorage.getItem("cc_mode")||"week"}catch(_){}
+const money=n=>"$"+(Math.round((+n||0)*100)/100).toLocaleString("en-CA",{maximumFractionDigits:2});
+const addDays=(d,n)=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()+n);return iso(x)};
+const weekStart=d=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()-((x.getDay()+6)%7));return iso(x)};
+const wday=d=>new Date(d+"T12:00:00").toLocaleDateString("en-CA",{weekday:"short"});
+const fmtLong=d=>d?new Date(d+"T12:00:00").toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric"}):"";
+const tlabel=t=>{if(!t)return"";const [h,m]=t.split(":").map(Number);return ((h+11)%12+1)+(m?":"+String(m).padStart(2,"0"):"")+(h<12?"am":"pm")};
+const pname=id=>(player(id)||{}).name||"Removed player";
+const rateOf=id=>+((player(id)||{}).rate)||0;
+const first=s=>String(s||"").trim().split(/\s+/)[0]||"";
+const att=b=>Array.isArray(b&&b.attendees)?b.attendees:[];
+const bSorted=()=>S.bookings.slice().sort((a,b)=>((a.date||"")+(a.start||"")).localeCompare((b.date||"")+(b.start||"")));
+const live=b=>b.status!=="cancelled";
+function payState(b){if(!live(b))return"cancelled";const due=att(b).filter(a=>+a.fee>0);if(!due.length)return"free";const n=due.filter(a=>a.paid).length;return n===due.length?"paid":n?"part":"unpaid"}
+function bTitle(b){const ns=att(b).map(a=>first(pname(a.playerId)));return b.title||(ns.length?(ns.length>3?ns.slice(0,3).join(", ")+" +"+(ns.length-3):ns.join(", ")):b.kind||"Session")}
+function owed(){const o=[];S.bookings.forEach(b=>{if(!live(b)||(b.date||"")>today())return;att(b).forEach((a,i)=>{if(!a.paid&&+a.fee>0)o.push({b,a,i})})});return o.sort((x,y)=>x.b.date.localeCompare(y.b.date))}
+const sessFor=(bid,pid)=>S.sessions.find(s=>s.bookingId===bid&&s.playerId===pid);
+function toSend(){
+  const out=[];
+  S.sessions.filter(s=>!s.sentAt&&s.date>=daysAgo(14)&&player(s.playerId)).forEach(s=>out.push({type:"session",date:s.date,pid:s.playerId,id:s.id}));
+  S.reports.filter(r=>r.status==="published"&&!r.sentAt&&player(r.playerId)).forEach(r=>out.push({type:"report",date:r.periodEnd,pid:r.playerId,id:r.id}));
+  return out.sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+}
+function findPlayer(name){
+  const n=String(name||"").trim().toLowerCase();if(!n)return null;
+  const ps=S.players.filter(p=>p.active!==false);
+  return ps.find(p=>(p.name||"").toLowerCase()===n)||ps.find(p=>first(p.name).toLowerCase()===n)||ps.find(p=>first(p.name).toLowerCase()===first(n))||ps.find(p=>(p.name||"").toLowerCase().includes(n))||null;
+}
+const MIC=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>`;
+
+function renderCommand(m,h){
+  if(!$("#ccShell")){
+    m.innerHTML=`<div id="ccNote"></div><section class="jarvis" id="ccShell">
+      <div class="jv-head"><div class="orb" id="orb"></div><div class="grow"><div class="lbl">Coach assistant</div><b>Tell me what happened, or ask me anything about your bookings</b></div>
+      <button class="btn sm ghost" data-act="jVoice" id="jVoice" title="Spoken replies">${C.voice?"Voice on":"Voice off"}</button></div>
+      <div class="jv-in"><textarea id="jIn" aria-label="Tell the assistant" placeholder="Speak or type. Example: Had a 1-on-1 with Aahil today, worked on the pull shot, head falling over on short balls. He paid $60 by e-transfer."></textarea>
+      <div class="jv-btns"><button class="mic" id="mic" data-act="mic" title="Dictate" aria-label="Dictate" hidden>${MIC}</button><button class="btn pri" data-act="jRun" id="jGo">Go</button></div></div>
+      <div class="partial" id="partial"></div>
+      <div class="jv-ex">${["Book Aahil 1-on-1 Saturday 10am, $60","Aahil paid $60 cash","Who still owes me money?","What's on this week?"].map(x=>`<button data-act="jEx" data-t="${esc(x)}">${esc(x)}</button>`).join("")}</div>
+      <div id="jOut"></div></section><div id="ccBody"></div>`;
+    updMic();
+  }
+  $("#ccNote").innerHTML=h;
+  gWatch();
+  $("#ccBody").innerHTML=commandBody();
+  $("#jOut").innerHTML=jarvisOut();
+  $("#orb").className="orb"+(C.listening?" listen":C.busy?" think":"");
+}
+
+function commandBody(){
+  const t=today(),ws=weekStart(t),we=addDays(ws,6),ms=t.slice(0,7);
+  const todays=bSorted().filter(b=>b.date===t&&live(b));
+  const week=S.bookings.filter(b=>b.date>=ws&&b.date<=we&&live(b));
+  const o=owed(),owedSum=o.reduce((s,x)=>s+(+x.a.fee||0),0),owedP=new Set(o.map(x=>x.a.playerId)).size;
+  let got=0;S.bookings.forEach(b=>att(b).forEach(a=>{if(a.paid&&((a.paidOn||b.date||"").slice(0,7)===ms))got+=(+a.paidAmount||+a.fee||0)}));
+  const ts=toSend();
+  const nxt=todays.find(b=>(b.start||"")>=new Date().toTimeString().slice(0,5))||todays[0];
+  const kpis=`<div class="kpis">
+    <div class="kpi hot"><span>Today</span><b>${todays.length}</b><small>${nxt?`Next: ${esc(bTitle(nxt))}${nxt.start?" at "+tlabel(nxt.start):""}`:"No sessions booked"}</small></div>
+    <div class="kpi"><span>This week</span><b>${week.length}</b><small>${week.filter(b=>b.status==="done").length} done · ${week.filter(b=>b.status!=="done").length} to go</small></div>
+    <div class="kpi ${owedSum?"warn":""}"><span>Owed to you</span><b>${money(owedSum)}</b><small>${owedP?`${owedP} player${owedP>1?"s":""}, ${o.length} session${o.length>1?"s":""}`:"Everyone is paid up"}</small></div>
+    <div class="kpi good"><span>Collected in ${new Date(t+"T12:00:00").toLocaleDateString("en-CA",{month:"long"})}</span><b>${money(got)}</b><small>From sessions marked paid</small></div>
+    <div class="kpi ${ts.length?"warn":""}"><span>Updates to send</span><b>${ts.length}</b><small>Session notes and reports</small></div></div>`;
+  return kpis+`<div class="cc-grid"><section class="card">${calendar()}</section><aside class="cc-side">${todayCard(todays)}${owedCard(o)}${sendCard(ts)}</aside></div>${rosterCard()}`;
+}
+
+function calendar(){
+  const a=C.anchor||today();
+  let head,grid;
+  if(C.mode==="month"){
+    const m0=a.slice(0,7)+"-01",gs=weekStart(m0);const lastDay=addDays(addDays(m0,32).slice(0,7)+"-01",-1);const ge=addDays(weekStart(lastDay),6);
+    head=new Date(m0+"T12:00:00").toLocaleDateString("en-CA",{month:"long",year:"numeric"});
+    let cells="";for(let d=gs;d<=ge;d=addDays(d,1)){const bs=bSorted().filter(b=>b.date===d);
+      cells+=`<div class="mc ${d.slice(0,7)!==m0.slice(0,7)?"out":""} ${d===today()?"today":""}" data-act="bNew" data-d="${d}"><span class="n">${+d.slice(8)}</span>${bs.slice(0,3).map(b=>`<button class="mi" data-act="bOpen" data-id="${b.id}"><i class="dot ${payState(b)}"></i>${b.start?tlabel(b.start)+" ":""}${esc(bTitle(b))}</button>`).join("")}${bs.length>3?`<span class="meta" style="font-size:11px">+${bs.length-3} more</span>`:""}${gShown(d).slice(0,2).map(g=>`<button class="mi g" data-act="gOpen" data-id="${esc(g.id)}">${g.start?tlabel(g.start)+" ":""}${esc(g.title)}</button>`).join("")}</div>`}
+    grid=`<div class="month">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(x=>`<div class="wd">${x}</div>`).join("")}${cells}</div>`;
+  }else{
+    const ws=weekStart(a),we=addDays(ws,6);
+    head=`${fmt(ws).replace(/, \d{4}$/,"")} – ${fmt(we)}`;
+    let cols="";for(let i=0;i<7;i++){const d=addDays(ws,i);const bs=bSorted().filter(b=>b.date===d);
+      cols+=`<div class="day ${d===today()?"today":d<today()?"past":""}"><div class="dh"><span>${wday(d)} <span class="dn">${+d.slice(8)}</span></span><button class="add" data-act="bNew" data-d="${d}" title="Add booking" aria-label="Add booking on ${fmtLong(d)}">+</button></div>
+      ${bs.map(b=>{const n=att(b).length;const logged=att(b).filter(x=>sessFor(b.id,x.playerId)).length;
+        return `<button class="bk ${payState(b)}" data-act="bOpen" data-id="${b.id}"><span class="t">${b.start?tlabel(b.start):"Any time"}${b.mins?" · "+b.mins+"m":""}</span><b>${esc(bTitle(b))}</b><span class="meta">${esc(b.kind||"")}${b.status==="done"?" · Done":""}${n&&b.status!=="cancelled"?` · ${logged}/${n} logged`:""}</span></button>`}).join("")}${gShown(d).map(g=>`<button class="bk gcal" data-act="gOpen" data-id="${esc(g.id)}"><span class="t">${g.start?tlabel(g.start):"All day"}</span><b>${esc(g.title)}</b><span class="meta">Tap to add as a booking</span></button>`).join("")}</div>`}
+    grid=`<div class="week">${cols}</div>`;
+  }
+  return `<div class="cc-h"><h3>Schedule</h3><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <div class="seg"><button data-act="calMode" data-v="week" class="${C.mode!=="month"?"on":""}">Week</button><button data-act="calMode" data-v="month" class="${C.mode==="month"?"on":""}">Month</button></div>
+    <button class="btn sm" data-act="calNav" data-n="-1" aria-label="Previous">‹</button><b style="min-width:150px;text-align:center;font-size:14px">${esc(head)}</b><button class="btn sm" data-act="calNav" data-n="1" aria-label="Next">›</button>
+    <button class="btn sm ghost" data-act="calNav" data-n="0">Today</button><button class="btn sm pri" data-act="bNew" data-d="${today()}">+ Booking</button></div></div>
+    ${gBar()}<div class="calwrap">${grid}</div>
+    <div class="legend2"><span><i class="dot paid"></i>Paid</span><span><i class="dot part"></i>Part paid</span><span><i class="dot unpaid"></i>Not paid</span><span><i class="dot free"></i>No fee set</span><span><i class="dot cancelled"></i>Cancelled</span></div>`;
+}
+
+function todayCard(todays){
+  return `<section class="card"><div class="cc-h"><h3>Today</h3><span class="meta">${fmtLong(today())}</span></div>${todays.length?todays.map(b=>`<div class="rowi"><div class="who"><b>${b.start?tlabel(b.start)+" · ":""}${esc(bTitle(b))}</b><span class="meta"><i class="dot ${payState(b)}"></i>${esc(b.kind||"")}${b.location?" · "+esc(b.location):""}</span></div><div class="btns"><button class="btn sm" data-act="bOpen" data-id="${b.id}">Open</button></div></div>`).join(""):`<p class="meta" style="margin:0">Nothing booked today. Add one with + Booking or tell the assistant.</p>`}</section>`;
+}
+function owedCard(o){
+  return `<section class="card"><div class="cc-h"><h3>Waiting on payment</h3>${o.length?`<span class="amt">${money(o.reduce((s,x)=>s+(+x.a.fee||0),0))}</span>`:""}</div>${o.length?o.slice(0,12).map(x=>`<div class="rowi"><div class="who"><b>${esc(pname(x.a.playerId))}</b><span class="meta">${fmtLong(x.b.date)} · ${money(x.a.fee)}${x.a.remindedOn?" · reminded "+fmt(x.a.remindedOn).replace(/, \d{4}$/,""):""}</span></div><div class="btns"><button class="btn sm" data-act="remind" data-id="${x.b.id}" data-i="${x.i}">Remind</button><button class="btn sm pri" data-act="payOpen" data-id="${x.b.id}" data-i="${x.i}">Paid</button></div></div>`).join("")+(o.length>12?`<p class="meta">+${o.length-12} more</p>`:""):`<p class="meta" style="margin:0">Nobody owes you for past sessions.</p>`}</section>`;
+}
+function sendCard(ts){
+  return `<section class="card"><div class="cc-h"><h3>Updates to send</h3></div>${ts.length?ts.slice(0,10).map(x=>`<div class="rowi"><div class="who"><b>${esc(pname(x.pid))}</b><span class="meta">${x.type==="report"?"Monthly report":"Session update"} · ${fmtLong(x.date)}</span></div><div class="btns"><button class="btn sm pri" data-act="${x.type==="report"?"sendReport":"sendSession"}" data-id="${x.id}">Send</button></div></div>`).join(""):`<p class="meta" style="margin:0">All session notes and reports have gone out.</p>`}</section>`;
+}
+function rosterCard(){
+  const ps=active().sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+  if(!ps.length)return `<section class="card roster empty"><h3>No players yet</h3><p>Add your first player, or tell the assistant something like "New player Zayan, U13, dad is Imran, 416 555 0101".</p><button class="btn pri" data-act="newPlayer">+ Add player</button></section>`;
+  const rows=ps.map(p=>{
+    const ss=forP("sessions",p.id).sort(byDate);const last=ss[ss.length-1];const m30=ss.filter(s=>s.date>=daysAgo(30)).length;
+    const nb=bSorted().find(b=>live(b)&&b.date>=today()&&att(b).some(a=>a.playerId===p.id));
+    const ow=owed().filter(x=>x.a.playerId===p.id).reduce((s,x)=>s+(+x.a.fee||0),0);
+    const rep=forP("reports",p.id).sort((x,y)=>(x.periodEnd||"").localeCompare(y.periodEnd||"")).pop();
+    const repChip=!rep?`<span class="chip warn">None yet</span>`:rep.sentAt?`<span class="chip ok">Sent ${fmt(iso(new Date(rep.sentAt))).replace(/, \d{4}$/,"")}</span>`:rep.status==="published"?`<span class="chip warn">Published, not sent</span>`:`<span class="chip">Draft</span>`;
+    return `<tr><td><button class="nm" data-act="open" data-id="${p.id}">${esc(p.name)}</button><div class="meta">${esc([p.ageGroup,p.role].filter(Boolean).join(" · "))}</div></td><td><span class="chip prog">${esc(p.program||"—")}</span></td><td>${m30}</td><td>${last?fmtLong(last.date):"—"}</td><td>${nb?fmtLong(nb.date)+(nb.start?" "+tlabel(nb.start):""):"—"}</td><td>${ow?`<span class="amt" style="font-size:14px">${money(ow)}</span>`:`<span class="chip ok">Paid up</span>`}</td><td>${repChip}</td><td style="white-space:nowrap"><button class="btn sm" data-act="logSession" data-id="${p.id}">+ Log</button> <button class="btn sm" data-act="bNewFor" data-id="${p.id}">+ Book</button></td></tr>`}).join("");
+  return `<section class="card roster"><div class="cc-h"><h3>Players</h3><button class="btn sm" data-act="newPlayer">+ Add player</button></div><div class="tbl"><table><thead><tr><th>Player</th><th>Program</th><th>Sessions (30 days)</th><th>Last session</th><th>Next booking</th><th>Owes</th><th>Latest report</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
+
+/* ----- Google Calendar (secret iCal address, read through the pp-calendar function) ----- */
+const G={events:[],status:"off",err:"",at:0,key:"",all:false,push:true,armImp:null,timer:null,busy:false,setup:false};
+try{G.all=localStorage.getItem("cc_gall")==="1";G.push=localStorage.getItem("cc_gpush")!=="0"}catch(_){}
+const COACH_RE=/\b(1\s*(on|-|:|x)\s*1|one[- ]on[- ]one|1-1|cricket|coaching|nets?|academy|batting|bowling|fielding|keeping|training|lesson|session|camp|trials?|6ix|cardinal)\b/i;
+function calRange(){const a=C.anchor||today();
+  if(C.mode==="month"){const m0=a.slice(0,7)+"-01";const last=addDays(addDays(m0,32).slice(0,7)+"-01",-1);return [weekStart(m0),addDays(weekStart(last),6)]}
+  const ws=weekStart(a);return [ws,addDays(ws,6)]}
+const gPlayers=t=>active().filter(p=>{const f=first(p.name);return f.length>1&&new RegExp("\\b"+f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","i").test(t)});
+const gIsCoach=e=>COACH_RE.test(e.title)||gPlayers(e.title).length>0;
+const gImported=e=>S.bookings.some(b=>b.gcalId===e.id||(b.gcalPushed&&!b.gcalId&&b.date===e.date&&b.start===e.start));
+const gShown=d=>G.status!=="ok"?[]:G.events.filter(e=>e.date===d&&!gImported(e)&&(G.all||gIsCoach(e)));
+function gGuess(t){const m=t.match(/\bwith\s+([A-Z][a-zA-Z'-]+(?:\s+[A-Z][a-zA-Z'-]+)?)/)||t.match(/^([A-Z][a-zA-Z'-]+)(?:'s)?\s*[-:·]?\s*(?:1\s*(?:on|-|:|x)\s*1|one[- ]on[- ]one|session|lesson|nets|coaching)\b/i);return m?m[1]:""}
+function gToBooking(g){const ps=gPlayers(g.title);const kind=/academy/i.test(g.title)?"Academy":/group|camp|squad|nets|Udd/i.test(g.title)||ps.length>1?"Group":"1-on-1";
+  return {date:g.date,start:g.start,mins:g.mins||60,kind,location:g.location,title:ps.length?"":g.title,status:"booked",gcalId:g.id,_gTitle:g.title,_newName:ps.length?"":gGuess(g.title),attendees:ps.map(p=>({playerId:p.id,fee:rateOf(p.id),paid:false,method:""}))}}
+async function fnCall(name,body){
+  const {data,error}=await S.sb.functions.invoke(name,{body});
+  if(error){let code="error";try{const b=await error.context.json();code=b.error||code}catch(_){}throw {code}}
+  if(data&&data.error)throw {code:data.error};
+  return data||{};
+}
+async function gFetch(force){
+  const [s,e]=calRange(),key=s+"|"+e;
+  if(!force&&key===G.key)return;
+  G.key=key;G.armImp=null;if(G.busy)return;G.busy=true;
+  if(G.status==="off"||force&&G.status!=="ok")G.status="loading";
+  try{const d=await fnCall("pp-calendar",{start:s,end:e});G.events=Array.isArray(d.events)?d.events:[];G.status="ok";G.err="";G.at=Date.now()}
+  catch(err){const c=err&&err.code||"error";if(["no_url","bad_url","feed_gone","not_coach"].includes(c)){G.status=c;G.events=[]}else if(G.status==="ok")G.err=c;else G.status="failed"}
+  finally{G.busy=false;if(key!==G.key)G.key="";if(S.view==="command"&&S.isCoach)renderMain()}
+}
+function gWatch(){gFetch(false);if(!G.timer)G.timer=setInterval(()=>{if(S.view==="command"&&S.isCoach&&!document.hidden&&!S.modal)gFetch(true)},300000)}
+async function gAllow(){G.status="loading";renderMain();await gFetch(true)}
+async function gSave(btn){
+  const v=val("gUrl");
+  if(!/^https:\/\/calendar\.google\.com\/calendar\/ical\/.+\.ics/.test(v)){toast("Paste the secret address in iCal format. It starts with https://calendar.google.com/calendar/ical/ and ends in .ics",true);return}
+  btn.disabled=true;
+  const {error}=await S.sb.from("pp_coach_settings").upsert({key:"ics_url",value:v,updated_at:new Date().toISOString()});
+  btn.disabled=false;
+  if(error){toast("Couldn't save the address ("+error.message+").",true);return}
+  G.setup=false;toast("Calendar connected.");await gAllow();
+}
+function gBar(){
+  const s=G.status;const dot=`<span class="g"></span>`;
+  const setupForm=(msg)=>`<div class="gbar" style="display:block">${dot} <b style="color:var(--text)">${msg}</b>
+    <ol class="meta" style="margin:8px 0 10px 18px;padding:0">
+      <li>Open Google Calendar on a computer and go to Settings.</li>
+      <li>Under "Settings for my calendars", click your calendar, then "Integrate calendar".</li>
+      <li>Copy "Secret address in iCal format" and paste it here.</li></ol>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="url" id="gUrl" placeholder="https://calendar.google.com/calendar/ical/…/basic.ics" style="flex:1;min-width:220px"><button class="btn sm pri" data-act="gSave">Connect calendar</button>${G.setup?`<button class="btn sm ghost" data-act="gSetupX">Cancel</button>`:""}</div>
+    <p class="meta" style="margin:8px 0 0">Keep this address private: anyone with it can read your calendar. Only your coach login can see it here.</p></div>`;
+  if(s==="not_coach")return "";
+  if(G.setup)return setupForm("Change the connected calendar");
+  if(s==="off"||s==="loading")return `<div class="gbar">${dot}<span class="grow"><span class="spin"></span> Loading Google Calendar…</span></div>`;
+  if(s==="no_url")return setupForm("Connect your Google Calendar");
+  if(s==="bad_url")return setupForm("That saved address isn't a Google Calendar iCal address");
+  if(s==="feed_gone")return setupForm("Google stopped accepting the saved address. It may have been reset");
+  if(s==="failed")return `<div class="gbar">${dot}<span class="grow">Couldn't load Google Calendar just now.</span><button class="btn sm" data-act="gAllow">Try again</button></div>`;
+  const [a,b]=calRange();const todo=G.events.filter(e=>e.date>=a&&e.date<=b&&!gImported(e)&&gIsCoach(e)&&(gPlayers(e.title).length||gGuess(e.title)));
+  return `<div class="gbar">${dot}<span class="grow">Google Calendar synced at ${new Date(G.at).toLocaleTimeString("en-CA",{hour:"numeric",minute:"2-digit"})}${G.err?" · last refresh failed, showing earlier events":""} · Dashed cards are calendar events not booked here yet.</span>
+    <label class="check"><input type="checkbox" data-act="gAll" ${G.all?"checked":""}> Show all events</label>
+    ${todo.length?`<button class="btn sm" data-act="gImport">Import ${todo.length} coaching event${todo.length>1?"s":""}</button>`:""}
+    <button class="btn sm ghost" data-act="gAllow" title="Refresh">Refresh</button><button class="btn sm ghost" data-act="gSetup">Change calendar</button></div>`;
+}
+async function gImportAll(btn){
+  btn.disabled=true;btn.innerHTML=`<span class="spin"></span> Importing…`;
+  const [a,b]=calRange();let n=0;const made={};
+  for(const g of G.events.filter(e=>e.date>=a&&e.date<=b&&!gImported(e)&&gIsCoach(e))){
+    const bk=gToBooking(g);
+    if(!bk.attendees.length&&bk._newName){const k=bk._newName.toLowerCase();let pid=made[k];
+      if(!pid){const ex=findPlayer(bk._newName);pid=ex&&ex.name.toLowerCase()===k?ex.id:await save("players",null,{name:bk._newName,program:"1-on-1",active:true});made[k]=pid}
+      if(pid){bk.attendees=[{playerId:pid,fee:rateOf(pid),paid:false,method:""}];bk.title=""}}
+    if(!bk.attendees.length)continue;
+    delete bk._gTitle;delete bk._newName;
+    if(await save("bookings",null,bk))n++;
+  }
+  toast(n?`Imported ${n} booking${n>1?"s":""}.`:"Nothing imported.",!n);renderMain();
+}
+function gLink(b){
+  const ns=att(b).map(a=>pname(a.playerId)).join(", ");
+  const s=b.date.replace(/-/g,"")+"T"+String(b.start||"00:00").replace(":","")+"00";
+  const end=new Date(b.date+"T"+(b.start||"00:00")+":00");end.setMinutes(end.getMinutes()+(+b.mins||60));
+  const e=iso(end).replace(/-/g,"")+"T"+end.toTimeString().slice(0,8).replace(/:/g,"");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(`${b.kind||"Session"} · ${b.title||ns||"Cricket"}`)+"&dates="+s+"/"+e+"&ctz=America/Toronto"+(b.location?"&location="+encodeURIComponent(b.location):"")+"&details="+encodeURIComponent("Booked in 6ix Player Pathway"+(ns?"\nPlayers: "+ns:""));
+}
+function gLinkModal(b){
+  if(!b.start)return;
+  openModal(`<h3>Booking saved</h3><div class="sub">${esc(bTitle(b))} · ${fmtLong(b.date)} · ${tlabel(b.start)}</div><p>Google Calendar opens in a new tab with the session filled in. Press Save there to add it.</p>
+  <div class="actions"><button class="btn ghost" data-act="close">Skip</button><a class="btn pri" target="_blank" rel="noopener" href="${esc(gLink(b))}" data-act="gPushed" data-id="${esc(b.id)}">Add to Google Calendar</a></div>`);
+}
+
+/* ----- assistant connection (pp-assistant function) ----- */
+async function ai(prompt,tier){const d=await fnCall("pp-assistant",{prompt,tier});return String(d.text||"")}
+const smp=async(input,o)=>({text:await ai(typeof input==="string"?input:input.map(m=>m.content).join("\n\n"),o&&o.modelTier==="quick"?"quick":"default")});
+smp.json=async(input,o)=>{const t=(await smp(input,o)).text;const m=t.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:t)};
+S.sample=smp;
+const aiMsg=e=>{const c=e&&e.code;return c==="no_key"?"The assistant isn't switched on yet: its Anthropic API key still needs adding in Supabase.":c==="not_coach"?"Only the coach login can use the assistant.":c==="rate_limited"?"Too many requests just now. Wait a minute and try again.":e instanceof SyntaxError?"I couldn't read Claude's answer that time. Try saying it another way.":"I couldn't work that out this time. Try again, or use the buttons below."};
+
+/* ----- booking modal ----- */
+function bookingForm(b){
+  const isNew=!b||!b.id;
+  b=b||{};C.edit={id:b.id||null,gcalId:b.gcalId||"",attendees:att(b).map(a=>({...a}))};C.armDel=null;
+  const fromG=isNew&&b.gcalId;
+  const ps=active().sort((x,y)=>(x.name||"").localeCompare(y.name||""));
+  const fee=C.edit.attendees.length?C.edit.attendees[0].fee:"";
+  openModal(`<h3>${isNew?"New booking":"Booking"}</h3><div class="sub">${fromG?"From Google Calendar: "+esc(b._gTitle||""):isNew?"Add a 1-on-1, group or academy session to the schedule.":esc(fmtLong(b.date))+(b.start?" · "+tlabel(b.start):"")+" · "+esc(b.kind||"")}</div>
+  <div class="f3"><div class="f"><label>Date</label><input type="date" id="bDate" value="${esc(b.date||today())}"></div><div class="f"><label>Start</label><input type="time" id="bStart" value="${esc(b.start||"17:00")}"></div><div class="f"><label>Minutes</label><input type="text" inputmode="numeric" id="bMins" value="${esc(b.mins||60)}"></div></div>
+  <div class="f2"><div class="f"><label>Type</label>${sel("bKind",KINDS,b.kind||"1-on-1")}</div><div class="f"><label>Location</label><input type="text" id="bLoc" placeholder="e.g. Indoor nets, Mississauga" value="${esc(b.location)}"></div></div>
+  <div class="f"><label>Title (optional, for groups)</label><input type="text" id="bTitle" placeholder="e.g. U13 Saturday group" value="${esc(b.title)}"></div>
+  <div class="f"><label>Players — tap to add or remove</label><div class="pick" id="bPick">${ps.map(p=>`<button type="button" data-act="bPick" data-id="${p.id}" class="${C.edit.attendees.some(a=>a.playerId===p.id)?"on":""}">${esc(p.name)}</button>`).join("")||`<span class="meta">No players yet. Type a name below to add one.</span>`}</div></div>
+  <div class="f"><label>New player (not on your list yet)</label><input type="text" id="bNewName" placeholder="Name, e.g. Qasim" value="${esc(b._newName||"")}"></div>
+  <div class="f2"><div class="f"><label>Fee for players with no usual fee ($)</label><input type="text" inputmode="decimal" id="bFee" value="" placeholder="e.g. 60"></div><div class="f"><label>Status</label><select id="bStatus">${STATUSES.map(([v,l])=>`<option value="${v}" ${(b.status||"booked")===v?"selected":""}>${l}</option>`).join("")}</select></div></div>
+  <div class="sec" style="margin-top:4px">Attendance &amp; payment</div><div id="bAtt">${attRows(isNew?null:b)}</div>
+  <div class="f" style="margin-top:12px"><label>Notes</label><textarea id="bNotes" style="min-height:56px">${esc(b.notes)}</textarea></div>
+  ${isNew&&!b.gcalId?`<label class="check"><input type="checkbox" id="bPush" ${G.push?"checked":""}> Add it to my Google Calendar after saving</label>`:""}
+  ${b.gcalId||b.gcalPushed?`<p class="meta" style="margin:8px 0 0">Linked to Google Calendar. Changes here don't update the calendar event.</p>`:(!isNew&&b.start?`<p style="margin:8px 0 0"><a class="btn sm" target="_blank" rel="noopener" href="${esc(gLink(b))}" data-act="gPushed" data-id="${esc(b.id)}">Add to Google Calendar</a></p>`:"")}
+  <div class="actions">${isNew?"":`<button class="btn danger" data-act="bDel" data-id="${b.id}" id="bDelBtn">Delete</button>`}<button class="btn ghost" data-act="close">Close</button><button class="btn pri" data-act="saveBooking">Save booking</button></div>`);
+}
+function attRows(b){
+  if(!C.edit.attendees.length)return `<p class="meta" style="margin:0">No players added yet.</p>`;
+  return C.edit.attendees.map((a,i)=>{const s=b&&sessFor(b.id,a.playerId);
+    return `<div class="attrow"><b style="font-size:14px">${esc(pname(a.playerId))}</b><input type="text" inputmode="decimal" id="af_${i}" value="${esc(a.fee??"")}" placeholder="$ fee" aria-label="Fee">
+    <label class="check"><input type="checkbox" id="ap_${i}" ${a.paid?"checked":""}> Paid</label>
+    <select id="am_${i}" aria-label="Payment method"><option value="">Method</option>${METHODS.map(x=>`<option ${a.method===x?"selected":""}>${x}</option>`).join("")}</select>
+    <span>${b?(s?`<button class="btn sm" data-act="sendSession" data-id="${s.id}">${s.sentAt?"Resend":"Send update"}</button>`:`<button class="btn sm pri" data-act="bLog" data-id="${b.id}" data-pid="${a.playerId}">Log notes</button>`):""}</span></div>`}).join("");
+}
+function syncAtt(){
+  C.edit.attendees.forEach((a,i)=>{const f=document.getElementById("af_"+i);if(!f)return;
+    a.fee=f.value.trim()===""?0:+f.value.replace(/[^\d.]/g,"")||0;
+    const paid=document.getElementById("ap_"+i).checked;if(paid&&!a.paid)a.paidOn=today();if(!paid){delete a.paidOn}a.paid=paid;
+    a.method=document.getElementById("am_"+i).value});
+}
+function payForm(bid,i){
+  const b=S.bookings.find(x=>x.id===bid);const a=att(b)[i];if(!a)return;
+  openModal(`<h3>Payment received</h3><div class="sub">${esc(pname(a.playerId))} · ${fmtLong(b.date)} session</div>
+  <div class="f2"><div class="f"><label>Amount ($)</label><input type="text" inputmode="decimal" id="pyAmt" value="${esc(a.fee)}"></div><div class="f"><label>Received on</label><input type="date" id="pyDate" value="${today()}"></div></div>
+  <div class="f"><label>Method</label><div class="pick" id="pyM">${METHODS.map((m,k)=>`<button type="button" data-act="pyM" data-v="${m}" class="${(a.method||"E-transfer")===m?"on":""}">${m}</button>`).join("")}</div></div>
+  <div class="actions"><button class="btn ghost" data-act="close">Cancel</button><button class="btn pri" data-act="paySave" data-id="${bid}" data-i="${i}">Mark paid</button></div>`);
+}
+async function setAttendee(bid,i,patch){
+  const b=S.bookings.find(x=>x.id===bid);if(!b)return null;
+  const list=att(b).map((a,k)=>k===i?{...a,...patch}:a);return save("bookings",bid,{attendees:list});
+}
+
+/* ----- messages to parents ----- */
+function sessionText(s){
+  const p=player(s.playerId)||{};const fn=first(p.name)||"your player";
+  const nb=bSorted().find(b=>live(b)&&b.date>s.date&&b.date>=today()&&att(b).some(a=>a.playerId===s.playerId));
+  const b=s.bookingId&&S.bookings.find(x=>x.id===s.bookingId);const me=b&&att(b).find(a=>a.playerId===s.playerId);
+  let t=`Hi ${first(p.parentName)||"there"},\n\nHere's a quick update from ${fn}'s session on ${fmtLong(s.date)}.\n\n`;
+  if(s.focus&&s.focus.length)t+=`Focus: ${s.focus.join(", ")}\n`;
+  if(s.drills)t+=`What we worked on: ${s.drills}\n`;
+  if(s.well)t+=`What went well: ${s.well}\n`;
+  if(s.workOn)t+=`To work on next: ${s.workOn}\n`;
+  if(nb)t+=`\nNext session: ${fmtLong(nb.date)}${nb.start?" at "+tlabel(nb.start):""}.\n`;
+  if(me&&+me.fee>0&&!me.paid)t+=`\nSession fee: ${money(me.fee)} (not received yet). E-transfer or cash both work.\n`;
+  return t+`\nThanks,\nCoach Atif\n6ix Cricket Academy`;
+}
+function remindText(b,a){
+  const p=player(a.playerId)||{};
+  return `Hi ${first(p.parentName)||"there"},\n\nA friendly reminder that the fee for ${first(p.name)}'s ${b.kind==="1-on-1"?"1-on-1 ":""}session on ${fmtLong(b.date)} is still outstanding: ${money(a.fee)}.\n\nE-transfer or cash at the next session both work. Ignore this if you've already sent it.\n\nThanks,\nCoach Atif\n6ix Cricket Academy`;
+}
+const waNum=ph=>{let d=String(ph||"").replace(/\D/g,"");if(d.length===10)d="1"+d;return d};
+const waHref=(ph,body)=>`https://wa.me/${waNum(ph)}?text=${encodeURIComponent(body)}`;
+const PORTAL_URL="https://tinyurl.com/6ix-portal";
+const mailHref=(to,subject,body)=>`mailto:${encodeURIComponent(to||"").replace(/%40/g,"@")}?subject=${encodeURIComponent(subject||"")}&body=${encodeURIComponent(body||"")}`;
+function sendForm(cfg){
+  const p=player(cfg.pid)||{};C.send=cfg;
+  openModal(`<h3>${esc(cfg.title)}</h3><div class="sub">To ${esc(p.parentName||"parent of "+(p.name||""))}${p.parentPhone?" · "+esc(p.parentPhone):""}</div>
+  ${!p.parentEmail&&!p.parentPhone?`<div class="note">${esc(p.name)} has no parent email or phone saved. Type the email below, or <button class="back" style="margin:0;color:#ffd08a;text-decoration:underline" data-act="editPlayer" data-id="${p.id}">edit the player</button>.</div>`:""}
+  <div class="f"><label>Parent email</label><input type="text" id="mTo" inputmode="email" value="${esc(p.parentEmail)}" placeholder="parent@example.com"></div>
+  <div class="f"><label>Subject</label><input type="text" id="mSubj" value="${esc(cfg.subject)}"></div>
+  <div class="f"><label>Message</label><textarea id="mBody" style="min-height:230px">${esc(cfg.body)}</textarea></div>
+  ${cfg.type==="report"?`<div class="guide">An email link can't attach files. <button class="btn sm" data-act="pdf" data-id="${esc(cfg.id)}">Download the PDF</button> and attach it yourself${p.accessActive?", or leave it: this family already sees published reports when they sign in to the portal.":"."}</div>`:""}
+  ${S.sample?`<div style="margin-top:8px"><button class="btn sm" data-act="mPolish" id="mPolish">Polish wording with Claude</button></div>`:""}
+  <div class="actions" style="justify-content:space-between"><div class="mlinks"><button class="btn sm ghost" data-act="mCopy">Copy</button><button class="btn sm ghost" data-act="mMark">Mark as sent</button></div>
+  <div class="mlinks"><button class="btn ghost" data-act="close">Close</button>${p.parentPhone?`<a class="btn" id="waLink" target="_blank" rel="noopener" data-act="mVia" data-via="whatsapp" href="${esc(waHref(p.parentPhone,cfg.body))}">WhatsApp</a>`:""}<a class="btn pri" id="mailLink" data-act="mVia" data-via="email" href="${esc(mailHref(p.parentEmail,cfg.subject,cfg.body))}">Open in email</a></div></div>`);
+}
+function updLinks(){
+  const p=C.send&&player(C.send.pid);if(!p||!$("#mBody"))return;const body=$("#mBody").value;
+  const w=$("#waLink");if(w)w.href=waHref(p.parentPhone,body);
+  const m=$("#mailLink");if(m)m.href=mailHref(val("mTo"),val("mSubj"),body);
+}
+function sendSessionForm(s){const p=player(s.playerId)||{};sendForm({type:"session",id:s.id,pid:s.playerId,title:"Send session update",subject:`${first(p.name)}'s session update · ${fmtLong(s.date)}`,body:sessionText(s)})}
+function sendReportForm(r){const p=player(r.playerId)||{};sendForm({type:"report",id:r.id,pid:r.playerId,title:"Send monthly report",subject:`${p.name}'s progress report · ${fmt(r.periodStart)} to ${fmt(r.periodEnd)}`,
+  body:`Hi ${first(p.parentName)||"there"},\n\n${first(p.name)}'s progress report for ${fmt(r.periodStart)} to ${fmt(r.periodEnd)} is ready.${p.accessActive?` You can also see it any time in the 6ix player portal: ${PORTAL_URL}`:""}\n\n`+reportText(r)})}
+async function markSent(cfg,via){
+  const stamp={sentAt:new Date().toISOString(),sentVia:via};
+  if(cfg.type==="session")return save("sessions",cfg.id,stamp);
+  if(cfg.type==="report")return save("reports",cfg.id,stamp);
+  if(cfg.type==="remind")return setAttendee(cfg.bid,cfg.i,{remindedOn:today()});
+}
+async function sentVia(via){
+  const cfg=C.send;if(!cfg)return;const to=val("mTo");const p=player(cfg.pid);
+  if(p&&to&&!p.parentEmail&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to))save("players",p.id,{parentEmail:to.toLowerCase()});
+  await markSent(cfg,via);setTimeout(()=>{closeModal();toast(via==="email"?"Opened in your email app. Marked as sent.":"Opened in WhatsApp. Marked as sent.")},300);
+}
+
+/* ----- assistant ----- */
+function jarvisOut(){
+  let h="";
+  if(C.busy)h+=`<div class="reply"><span class="spin"></span> Working it out…</div>`;
+  else if(C.reply)h+=`<div class="reply">${esc(C.reply)}</div>`;
+  if(C.plan&&C.plan.length){const n=C.plan.filter(x=>x.on&&!x.bad).length;
+    h+=`<div class="plan">${C.plan.map((x,i)=>`<label class="act ${x.on&&!x.bad?"":"off"}"><input type="checkbox" data-act="jTog" data-i="${i}" ${x.on&&!x.bad?"checked":""} ${x.bad?"disabled":""}><div><b>${esc(x.label)}</b>${x.sub?`<div class="meta">${esc(x.sub)}</div>`:""}${x.chips.map(c=>`<span class="chip ${c[1]||""}">${esc(c[0])}</span>`).join("")}</div></label>`).join("")}</div>
+    <div class="toolbar" style="margin:10px 0 0"><button class="btn pri" data-act="jApply" ${n?"":"disabled"}>Save ${n} change${n===1?"":"s"}</button><button class="btn ghost" data-act="jDiscard">Discard</button><span class="meta">Check each line, then save.</span></div>`}
+  if(C.done&&C.done.length)h+=`<div class="plan">${C.done.map(s=>`<div class="act"><span></span><div class="row"><div><b>Session saved for ${esc(pname(s.playerId))}</b><div class="meta">${fmtLong(s.date)}</div></div><button class="btn sm pri" data-act="sendSession" data-id="${s.id}">Send update to parent</button></div></div>`).join("")}</div>`;
+  return h;
+}
+function updMic(){const m=$("#mic");if(!m)return;m.hidden=!C.D;m.classList.toggle("on",C.listening);m.setAttribute("aria-label",C.listening?"Stop dictating":"Dictate");const o=$("#orb");if(o)o.className="orb"+(C.listening?" listen":C.busy?" think":"")}
+function speak(t){if(!C.voice||!t||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.slice(0,600));u.lang="en-CA";speechSynthesis.speak(u)}catch(_){}}
+function snapshot(){
+  const t=today();
+  return {today:t,weekday:new Date(t+"T12:00:00").toLocaleDateString("en-CA",{weekday:"long"}),
+    next_14_days:Array.from({length:14},(_,i)=>{const d=addDays(t,i);return d+" "+new Date(d+"T12:00:00").toLocaleDateString("en-CA",{weekday:"long"})}),
+    players:active().map(p=>({name:p.name,usual_fee:+p.rate||0,age_group:p.ageGroup||"",program:p.program||"",parent:p.parentName||"",has_email:!!p.parentEmail,has_phone:!!p.parentPhone})),
+    bookings:bSorted().filter(b=>b.date>=daysAgo(30)&&b.date<=addDays(t,45)).map(b=>({date:b.date,start:b.start||"",kind:b.kind,status:b.status||"booked",players:att(b).map(a=>({name:pname(a.playerId),fee:+a.fee||0,paid:!!a.paid,method:a.method||""})),logged:att(b).filter(a=>sessFor(b.id,a.playerId)).map(a=>pname(a.playerId))})),
+    owed:owed().map(x=>({player:pname(x.a.playerId),date:x.b.date,fee:+x.a.fee||0})),
+    google_calendar_coaching_events_not_yet_booked:G.events.filter(e=>!gImported(e)&&gIsCoach(e)).map(e=>({date:e.date,start:e.start,title:e.title}))};
+}
+async function jRun(){
+  const text=$("#jIn").value.trim();
+  if(!text){toast("Say or type what happened first.",true);return}
+  if(!S.sample){C.reply="The assistant isn't available in this view. Use + Booking, + Log and the Paid buttons instead.";renderMain();return}
+  if(C.D&&C.listening){try{await C.D.stop()}catch(_){}}
+  C.busy=true;C.plan=null;C.done=null;C.reply="";$("#jOut").innerHTML=jarvisOut();updMic();
+  const prompt=`You are the scheduling and records assistant for Coach Atif, a cricket coach (6ix Cricket Academy, Mississauga) who runs 1-on-1s, group sessions and academy sessions. Turn what the coach said into actions on his records, and/or answer his question from the data.
+
+DATA (current records): ${JSON.stringify(snapshot())}
+
+COACH SAID: ${JSON.stringify(text)}
+
+Rules:
+- Resolve relative dates ("today", "Saturday", "next Tuesday", "yesterday") using DATA.today and next_14_days. Dates are YYYY-MM-DD, times 24h HH:MM.
+- Use player names as the coach said them, matched to DATA.players where possible.
+- A session the coach describes as having happened (what they worked on, how it went) is a "log". Something in the future is a "book".
+- Only include fields the coach actually said; use null or "" otherwise. Never invent fees, times, drills or contact details.
+- For a question (who owes money, what's on this week, when did X last train), answer it in "reply" from DATA and return no actions.
+- "reply" is one or two short plain sentences that will be read aloud: confirm what you're about to do, or answer the question. No lists, no emojis.
+
+Return ONLY JSON: {"reply": "", "actions": [ ... ]} where each action is one of:
+{"type":"book","date":"","start":"","mins":60,"kind":"1-on-1|Group|Academy","players":["name"],"fee":null,"title":"","location":""}
+{"type":"log","player":"name","date":"","focus":[zero or more of ${JSON.stringify(TAGS)}],"drills":"","well":"","workOn":"","privateNote":"","fee":null,"paid":null,"method":""}
+{"type":"paid","player":"name","date":null,"amount":null,"method":"E-transfer|Cash|Card|Other|"}
+{"type":"cancel","player":"name or null","date":"","start":""}
+{"type":"add_player","name":"","ageGroup":"","program":"","role":"","parentName":"","parentEmail":"","parentPhone":"","notes":""}
+{"type":"update_player","player":"name","fields":{"parentName":"","parentEmail":"","parentPhone":"","ageGroup":"","program":"","role":"","notes":"","rate":null}}
+("rate" is the player's usual fee per session. If a booking or log has no fee stated, leave "fee" null and the player's usual_fee is used.)`;
+  try{
+    const out=await S.sample.json(prompt,{modelTier:"default",cache:false});
+    C.reply=String(out&&out.reply||"").trim();
+    C.plan=resolvePlan(Array.isArray(out&&out.actions)?out.actions:[]);
+    if(!C.reply&&!C.plan.length)C.reply="I didn't catch anything to do there. Try naming the player, the day and what happened.";
+  }catch(e){C.reply=aiMsg(e)}
+  finally{C.busy=false;$("#jOut").innerHTML=jarvisOut();updMic();speak(C.reply)}
+}
+function resolvePlan(acts){
+  const newNames=new Set(S.players.map(p=>(p.name||"").toLowerCase()));
+  acts.filter(a=>a&&a.type==="add_player"&&a.name).forEach(a=>newNames.add(String(a.name).toLowerCase()));
+  const who=n=>{const p=findPlayer(n);return p?{pid:p.id,name:p.name,isNew:false}:{pid:null,name:String(n||"").trim(),isNew:true}};
+  return acts.map(a=>{
+    const x={a,on:true,bad:false,chips:[],sub:"",label:""};
+    if(a.type==="book"){
+      x.people=(a.players||[]).filter(Boolean).map(who);
+      x.label=`Book ${a.kind||"1-on-1"} · ${x.people.map(p=>p.name).join(", ")||"no players"} · ${fmtLong(a.date)}${a.start?" "+tlabel(a.start):""}`;
+      x.sub=[a.mins?a.mins+" min":"",a.fee?money(a.fee)+" per player":"No fee given",a.location||"",a.title||""].filter(Boolean).join(" · ");
+      x.people.filter(p=>p.isNew).forEach(p=>x.chips.push(["New player: "+p.name,"warn"]));
+      if(!a.date){x.bad=true;x.chips.push(["Missing date","warn"])}
+    }else if(a.type==="log"){
+      x.p=who(a.player);
+      x.label=`Log session · ${x.p.name} · ${fmtLong(a.date||today())}`;
+      x.sub=[a.focus&&a.focus.length?"Focus: "+a.focus.join(", "):"",a.drills?"Worked on: "+a.drills:"",a.well?"Went well: "+a.well:"",a.workOn?"Next: "+a.workOn:"",a.privateNote?"Private: "+a.privateNote:""].filter(Boolean).join("\n");
+      const b=S.bookings.find(b=>live(b)&&b.date===(a.date||today())&&x.p.pid&&att(b).some(z=>z.playerId===x.p.pid));
+      x.chips.push(b?["Linked to the "+(b.start?tlabel(b.start)+" ":"")+"booking"]:["Adds it to the schedule"]);
+      if(a.paid)x.chips.push(["Paid "+(a.fee?money(a.fee):"")+(a.method?" by "+a.method:""),"ok"]);
+      if(x.p.isNew)x.chips.push(["New player: "+x.p.name,"warn"]);
+    }else if(a.type==="paid"){
+      x.p=who(a.player);
+      const o=owed().filter(z=>z.a.playerId===x.p.pid);const fut=bSorted().filter(b=>live(b)&&b.date>today()).flatMap(b=>att(b).map((z,i)=>({b,a:z,i}))).filter(z=>z.a.playerId===x.p.pid&&!z.a.paid);
+      x.hit=(a.date&&[...o,...fut].find(z=>z.b.date===a.date))||o[0]||fut[0]||null;
+      x.label=`Mark paid · ${x.p.name}${a.amount?" · "+money(a.amount):""}${a.method?" · "+a.method:""}`;
+      if(x.hit)x.sub=`For the ${fmtLong(x.hit.b.date)} session (${money(x.hit.a.fee||a.amount)})`;
+      else{x.bad=true;x.chips.push([x.p.isNew?"Player not found":"No unpaid session found","warn"])}
+    }else if(a.type==="cancel"){
+      x.p=a.player?who(a.player):null;
+      x.hit=S.bookings.find(b=>live(b)&&b.date===a.date&&(!a.start||b.start===a.start)&&(!x.p||att(b).some(z=>z.playerId===x.p.pid)));
+      x.label=`Cancel · ${x.hit?bTitle(x.hit):(x.p?x.p.name:"booking")} · ${fmtLong(a.date)}${x.hit&&x.hit.start?" "+tlabel(x.hit.start):""}`;
+      if(!x.hit){x.bad=true;x.chips.push(["No matching booking","warn"])}
+    }else if(a.type==="add_player"){
+      const ex=findPlayer(a.name);
+      x.label=`Add player · ${a.name||"?"}`;x.sub=[a.ageGroup,a.program,a.role,a.parentName&&"Parent: "+a.parentName,a.parentEmail,a.parentPhone].filter(Boolean).join(" · ");
+      if(!a.name){x.bad=true}else if(ex&&ex.name.toLowerCase()===String(a.name).toLowerCase()){x.bad=true;x.chips.push(["Already on your list","warn"])}
+    }else if(a.type==="update_player"){
+      x.p=who(a.player);const f=a.fields||{};x.fields=Object.fromEntries(Object.entries(f).filter(([k,v])=>v&&["parentName","parentEmail","parentPhone","ageGroup","program","role","notes","rate"].includes(k)).map(([k,v])=>[k,k==="rate"?+String(v).replace(/[^\d.]/g,"")||0:v]));
+      x.label=`Update ${x.p.name}`;x.sub=Object.entries(x.fields).map(([k,v])=>`${k.replace(/([A-Z])/g," $1").toLowerCase()}: ${v}`).join(" · ");
+      if(x.p.isNew||!Object.keys(x.fields).length){x.bad=true;x.chips.push([x.p.isNew?"Player not found":"Nothing to change","warn"])}
+    }else{x.bad=true;x.label="Unrecognised action"}
+    return x});
+}
+async function jApply(btn){
+  btn.disabled=true;btn.innerHTML=`<span class="spin"></span> Saving…`;
+  const made={};let n=0;const logged=[];
+  const pidOf=async(p,extra)=>{if(p.pid)return p.pid;const k=p.name.toLowerCase();if(made[k])return made[k];
+    const ex=findPlayer(p.name);if(ex&&ex.name.toLowerCase()===k)return ex.id;
+    const id=await save("players",null,{name:p.name,program:"1-on-1",ageGroup:"",active:true,...(extra||{})});made[k]=id;return id};
+  for(const x of C.plan.filter(x=>x.on&&!x.bad)){const a=x.a;
+    try{
+      if(a.type==="add_player"){const d={name:a.name,program:PROGRAMS.includes(a.program)?a.program:"1-on-1",ageGroup:AGES.includes(a.ageGroup)?a.ageGroup:"",role:ROLES.includes(a.role)?a.role:"",parentName:a.parentName||"",parentEmail:a.parentEmail||"",parentPhone:a.parentPhone||"",notes:a.notes||"",active:true};
+        const id=await save("players",null,d);if(id){made[a.name.toLowerCase()]=id;n++}}
+      else if(a.type==="book"){const ids=[];for(const p of x.people){const id=await pidOf(p);if(id)ids.push(id)}
+        const bd={date:a.date,start:a.start||"",mins:+a.mins||60,kind:KINDS.includes(a.kind)?a.kind:(ids.length>1?"Group":"1-on-1"),title:a.title||"",location:a.location||"",status:"booked",notes:"",attendees:ids.map(id=>({playerId:id,fee:+a.fee||rateOf(id),paid:false,method:""}))};
+        const bid=await save("bookings",null,bd);if(bid)n++}
+      else if(a.type==="log"){const pid=await pidOf(x.p);if(!pid)continue;const date=a.date||today();
+        let b=S.bookings.find(b=>live(b)&&b.date===date&&att(b).some(z=>z.playerId===pid));let bid=b&&b.id;
+        const pay=a.paid?{paid:true,method:a.method||"",paidOn:today()}:{};
+        if(!b)bid=await save("bookings",null,{date,start:"",mins:60,kind:"1-on-1",title:"",location:"",status:"done",notes:"",attendees:[{playerId:pid,fee:+a.fee||rateOf(pid),paid:false,method:"",...pay}]});
+        else{const list=att(b).map(z=>z.playerId===pid?{...z,...(!+z.fee&&(+a.fee||rateOf(pid))?{fee:+a.fee||rateOf(pid)}:{}),...pay}:z);await save("bookings",b.id,{attendees:list,status:"done"})}
+        const d={playerId:pid,date,focus:(a.focus||[]).filter(t=>TAGS.includes(t)),drills:a.drills||"",well:a.well||"",workOn:a.workOn||"",privateNote:a.privateNote||"",bookingId:bid||""};
+        const sid=await save("sessions",null,d);if(sid){logged.push({...d,id:sid});n++}}
+      else if(a.type==="paid"){const h=x.hit;const fee=+h.a.fee||+a.amount||0;
+        if(await setAttendee(h.b.id,h.i,{paid:true,method:a.method||h.a.method||"",paidOn:today(),fee,...(a.amount&&+a.amount!==fee?{paidAmount:+a.amount}:{})}))n++}
+      else if(a.type==="cancel"){if(await save("bookings",x.hit.id,{status:"cancelled"}))n++}
+      else if(a.type==="update_player"){if(await save("players",x.p.pid,x.fields))n++}
+    }catch(err){toast("One change didn't save: "+x.label,true)}
+  }
+  C.plan=null;C.done=logged;$("#jIn").value="";
+  toast(n?`Saved ${n} change${n===1?"":"s"}.`:"Nothing was saved.",!n);
+  renderMain();
+}
+
+/* ----- command centre events ----- */
+(function(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;let rec=null;
+  C.D={
+    start(){return new Promise((res,rej)=>{
+      try{rec=new SR();rec.lang="en-CA";rec.continuous=true;rec.interimResults=true;
+        rec.onstart=()=>{C.listening=true;updMic();res()};
+        rec.onresult=ev=>{let interim="";
+          for(let i=ev.resultIndex;i<ev.results.length;i++){const r=ev.results[i];
+            if(r.isFinal){const el=$("#jIn");const t=r[0].transcript.trim();if(el&&t)el.value=el.value.trim()?el.value.replace(/\s*$/," ")+t:t}
+            else interim+=r[0].transcript}
+          const p=$("#partial");if(p)p.textContent=interim};
+        rec.onerror=ev=>{
+          if(ev.error==="not-allowed"||ev.error==="service-not-allowed")toast("Microphone access is blocked. Allow it from the browser's address bar, or type instead.",true);
+          else if(ev.error!=="no-speech"&&ev.error!=="aborted")toast("Dictation stopped ("+ev.error+"). Tap the mic to try again.",true);
+          rej({code:ev.error})};
+        rec.onend=()=>{C.listening=false;updMic();const p=$("#partial");if(p)p.textContent=""};
+        rec.start()}catch(e){rej(e)}})},
+    stop(){try{rec&&rec.stop()}catch(_){}return Promise.resolve()}
+  };
+  updMic();
+})();
+document.addEventListener("click",e=>{
+
+  const el=e.target.closest("[data-act]");if(!el)return;
+  const act=el.dataset.act,id=el.dataset.id;
+  if(act==="mic"){if(!C.D)return;
+    if(C.listening){C.D.stop().catch(()=>{})}else{C.D.start().catch(err=>{if(err&&err.code==="not_granted"){C.D=null;updMic();toast("Microphone isn't allowed for this app, so typing is the way in.",true)}else if(err&&err.code==="unavailable"){C.D=null;updMic()}})}
+    return}
+  (async()=>{switch(act){
+    case "jRun":jRun();break;
+    case "jEx":$("#jIn").value=el.dataset.t;$("#jIn").focus();break;
+    case "jVoice":C.voice=!C.voice;try{localStorage.setItem("cc_voice",C.voice?"on":"off")}catch(_){}el.textContent=C.voice?"Voice on":"Voice off";if(!C.voice){try{speechSynthesis.cancel()}catch(_){}}break;
+    case "jTog":C.plan[+el.dataset.i].on=el.checked;$("#jOut").innerHTML=jarvisOut();break;
+    case "jDiscard":C.plan=null;C.reply="";$("#jOut").innerHTML=jarvisOut();break;
+    case "jApply":jApply(el);break;
+    case "calMode":C.mode=el.dataset.v;try{localStorage.setItem("cc_mode",C.mode)}catch(_){}renderMain();break;
+    case "calNav":{const n=+el.dataset.n,a=C.anchor||today();
+      if(!n)C.anchor=today();else if(C.mode==="month"){const x=new Date(a.slice(0,7)+"-15T12:00:00");x.setMonth(x.getMonth()+n);C.anchor=iso(x)}else C.anchor=addDays(a,7*n);renderMain();break}
+    case "bNew":if(e.target.closest(".mi"))return;bookingForm({date:el.dataset.d,start:"17:00",mins:60,kind:"1-on-1",status:"booked",attendees:[]});break;
+    case "bNewFor":bookingForm({date:today(),start:"17:00",mins:60,kind:"1-on-1",status:"booked",attendees:[{playerId:id,fee:rateOf(id),paid:false,method:""}]});break;
+    case "bOpen":e.stopPropagation();bookingForm(S.bookings.find(b=>b.id===id));break;
+    case "bPick":{syncAtt();const i=C.edit.attendees.findIndex(a=>a.playerId===id);
+      if(i>=0)C.edit.attendees.splice(i,1);else C.edit.attendees.push({playerId:id,fee:rateOf(id)||+val("bFee").replace(/[^\d.]/g,"")||0,paid:false,method:""});
+      el.classList.toggle("on");$("#bAtt").innerHTML=attRows(C.edit.id?S.bookings.find(b=>b.id===C.edit.id):null);
+      if(C.edit.attendees.length>1&&val("bKind")==="1-on-1")$("#bKind").value="Group";break}
+    case "saveBooking":{syncAtt();el.disabled=true;
+      const nn=val("bNewName");if(nn){const ex=findPlayer(nn);const pid=ex&&ex.name.toLowerCase()===nn.toLowerCase()?ex.id:await save("players",null,{name:nn,program:"1-on-1",ageGroup:"",active:true});
+        if(pid&&!C.edit.attendees.some(a=>a.playerId===pid))C.edit.attendees.push({playerId:pid,fee:+val("bFee").replace(/[^\d.]/g,"")||0,paid:false,method:""})}
+      const d={date:val("bDate")||today(),start:val("bStart"),mins:+val("bMins")||60,kind:val("bKind"),location:val("bLoc"),title:val("bTitle"),status:val("bStatus")||"booked",notes:val("bNotes"),attendees:C.edit.attendees};
+      if(C.edit.gcalId)d.gcalId=C.edit.gcalId;
+      const push=!C.edit.id&&$("#bPush")&&$("#bPush").checked;if($("#bPush")){G.push=push;try{localStorage.setItem("cc_gpush",push?"1":"0")}catch(_){}}
+      const ok=await save("bookings",C.edit.id,d);el.disabled=false;
+      if(ok){closeModal();toast(C.edit.id?"Booking updated.":"Booking added.");if(push)gLinkModal({...d,id:ok})}break}
+    case "gOpen":{e.stopPropagation();const g=G.events.find(x=>x.id===id);if(g)bookingForm(gToBooking(g));break}
+    case "gAll":G.all=el.checked;try{localStorage.setItem("cc_gall",G.all?"1":"0")}catch(_){}renderMain();break;
+    case "gAllow":gAllow();break;
+    case "gSave":gSave(el);break;
+    case "gSetup":G.setup=true;renderMain();break;
+    case "gSetupX":G.setup=false;renderMain();break;
+    case "gPushed":{const b=S.bookings.find(x=>x.id===id);if(b&&!b.gcalPushed)save("bookings",id,{gcalPushed:true});setTimeout(closeModal,300);break}
+    case "mVia":sentVia(el.dataset.via);break;
+    case "gImport":{if(G.armImp!==G.key){G.armImp=G.key;el.textContent="Tap again to import";el.classList.add("pri");return}G.armImp=null;gImportAll(el);break}
+    case "bDel":{if(C.armDel!==id){C.armDel=id;el.textContent="Tap again to delete";el.classList.add("arm");return}
+      if(await remove("bookings",id)){closeModal();renderAll();toast("Booking deleted.")}break}
+    case "bLog":{syncAtt();const b=S.bookings.find(x=>x.id===id);if(b)await save("bookings",b.id,{attendees:C.edit.attendees});sessionForm(el.dataset.pid,{date:b?b.date:today(),bookingId:id});break}
+    case "payOpen":payForm(id,+el.dataset.i);break;
+    case "pyM":document.querySelectorAll("#pyM button").forEach(b=>b.classList.toggle("on",b===el));break;
+    case "paySave":{const m=($("#pyM .on")||{}).dataset;const amt=+val("pyAmt").replace(/[^\d.]/g,"")||0;
+      const b=S.bookings.find(x=>x.id===id),a=att(b)[+el.dataset.i];
+      el.disabled=true;const ok=await setAttendee(id,+el.dataset.i,{paid:true,method:m?m.v:"",paidOn:val("pyDate")||today(),...(amt&&amt!==+a.fee?{paidAmount:amt}:{})});el.disabled=false;
+      if(ok){closeModal();toast(`${pname(a.playerId)} marked paid.`)}break}
+    case "remind":{const b=S.bookings.find(x=>x.id===id),i=+el.dataset.i,a=att(b)[i];sendForm({type:"remind",bid:id,i,pid:a.playerId,title:"Payment reminder",subject:`${first(pname(a.playerId))}'s session on ${fmtLong(b.date)}`,body:remindText(b,a)});break}
+    case "sendSession":{const s=S.sessions.find(x=>x.id===id);if(s)sendSessionForm(s);break}
+    case "sendReport":{const r=S.reports.find(x=>x.id===id);if(r)sendReportForm(r);break}
+    case "mCopy":try{await navigator.clipboard.writeText($("#mBody").value);toast("Message copied.")}catch(_){$("#mBody").select();toast("Press Ctrl+C to copy the selected text.")}break;
+    case "mMark":if(await markSent(C.send,"manual")){closeModal();toast("Marked as sent.")}break;
+    case "mPolish":{if(!S.sample)return;el.disabled=true;el.innerHTML=`<span class="spin"></span> Polishing…`;
+      try{const o=await S.sample(`Rewrite this message from a cricket coach to a player's parent so it reads warm, clear and professional. Keep every fact, date, amount and name exactly. Keep it short. Plain text, no emojis, Canadian spelling. Return only the message.\n\n${$("#mBody").value}`,{modelTier:"quick",cache:false});
+        if(o&&o.text){$("#mBody").value=o.text.trim();$("#mBody").dispatchEvent(new Event("input",{bubbles:true}))}}
+      catch(err){toast(err&&err.code==="not_granted"?"Claude access wasn't allowed for this app.":"Couldn't polish it this time.",true)}
+      finally{if(document.body.contains(el)){el.disabled=false;el.textContent="Polish wording with Claude"}}break}
+  }})();
+});
+document.addEventListener("input",e=>{if(["mBody","mSubj","mTo"].includes(e.target.id))updLinks()});
+document.addEventListener("keydown",e=>{
+  if(e.target.id==="jIn"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();jRun()}
+});
+
 /* ---------- events ---------- */
 document.addEventListener("input",e=>{
   const t=e.target;
@@ -607,7 +1247,7 @@ document.addEventListener("click",async e=>{
     case "newPlayer":playerForm();break;
     case "editPlayer":playerForm(player(id));break;
     case "savePlayer":{
-      const d={name:val("pName"),program:val("pProg"),ageGroup:val("pAge"),role:val("pRole"),dob:val("pDob"),batting:val("pBat"),bowling:val("pBowl"),parentName:val("pParent"),parentEmail:val("pEmail").toLowerCase(),parentEmail2:val("pEmail2").toLowerCase(),accessActive:$("#pAccess").checked,parentPhone:val("pPhone"),notes:val("pNotes"),active:true};
+      const d={name:val("pName"),program:val("pProg"),ageGroup:val("pAge"),role:val("pRole"),dob:val("pDob"),batting:val("pBat"),bowling:val("pBowl"),parentName:val("pParent"),parentEmail:val("pEmail").toLowerCase(),parentEmail2:val("pEmail2").toLowerCase(),accessActive:$("#pAccess").checked,parentPhone:val("pPhone"),rate:+val("pRate").replace(/[^\d.]/g,"")||null,notes:val("pNotes"),active:true};
       if(!d.name){toast("Add the player's name.",true);return}
       el.disabled=true;const nid=await save("players",id||null,d);el.disabled=false;
       if(nid){closeModal();toast(id?"Player updated.":"Player added.");if(!id){S.view="player";S.pid=nid;S.tab="overview";renderAll()}}
@@ -629,7 +1269,12 @@ document.addEventListener("click",async e=>{
       break}
     case "saveSession":{
       const d={playerId:el.dataset.pid,date:val("sDate")||today(),focus:focusPick,drills:val("sDrills"),well:val("sWell"),workOn:val("sWork"),privateNote:val("sPriv")};
-      el.disabled=true;const ok=await save("sessions",id||null,d);el.disabled=false;if(ok){closeModal();toast("Session logged.")}break}
+      if(el.dataset.bid)d.bookingId=el.dataset.bid;
+      el.disabled=true;const ok=await save("sessions",id||null,d);el.disabled=false;
+      if(ok){closeModal();
+        if(d.bookingId){const b=S.bookings.find(x=>x.id===d.bookingId);if(b&&b.status==="booked")await save("bookings",b.id,{status:"done"})}
+        if(!id){toast("Session logged. Send the update to the parent?");sendSessionForm({...d,id:ok})}else toast("Session updated.")}
+      break}
     case "newAssess":assessForm();break;
     case "editAssess":assessForm(S.assessments.find(x=>x.id===id));break;
     case "saveAssess":{
@@ -655,6 +1300,9 @@ document.addEventListener("click",async e=>{
     case "editReport":reportForm(S.reports.find(x=>x.id===id));break;
     case "copyPrompt":{const t=reportPrompt();if(!t)return;try{await navigator.clipboard.writeText(t);toast("Prompt copied — paste it into a Claude chat.")}catch(_){toast("Couldn't copy.",true)}break}
     case "applyReply":applyReply();break;
+    case "aiDraftP":{const t=reportPrompt();if(!t)return;el.disabled=true;el.innerHTML=`<span class="spin"></span> Drafting…`;
+      try{const out=await S.sample.json(t);$("#rPaste").value=JSON.stringify(out);applyReply()}catch(err){toast(aiMsg(err),true)}
+      finally{if(document.body.contains(el)){el.disabled=false;el.textContent="Draft it now"}}break}
     case "authMode":S.auth=el.dataset.m;S.authMsg="";S.authDirty=true;renderAll();break;
     case "authGo":S.authDirty=true;authGo(el);break;
     case "signOut":await S.sb.auth.signOut();break;
